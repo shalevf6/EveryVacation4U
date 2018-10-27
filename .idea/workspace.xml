@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="changed nothing">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_xerial_sqlite_jdbc_3_25_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xerial_sqlite_jdbc_3_25_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vacation4U.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Vacation4U.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sqlite_database_file_path" beforeDir="false" afterPath="$PROJECT_DIR$/sqlite_database_file_path" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sample/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/sample.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sample/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sample/Controller.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/sample/Main.class" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
@@ -26,6 +20,20 @@
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="DebuggerManager">
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true" converted="true">
@@ -73,8 +81,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="35" lean-forward="true" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+            <state relative-caret-position="146">
+              <caret line="126" column="35" lean-forward="true" selection-start-line="126" selection-start-column="35" selection-end-line="126" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -191,21 +199,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Vacation4U" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="Vacation4U" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.xerial:sqlite-jdbc:3.25.2" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="Vacation4U" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.xerial:sqlite-jdbc:3.25.2" type="70bed36:NamedLibraryElementNode" />
-              <item name="sqlite-jdbc-3.25.2.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -239,6 +232,7 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="Sqlite (Xerial)" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -370,7 +364,7 @@
       <workItem from="1540567386554" duration="135000" />
       <workItem from="1540567936304" duration="2176000" />
       <workItem from="1540570554328" duration="728000" />
-      <workItem from="1540636702926" duration="926000" />
+      <workItem from="1540636702926" duration="8763000" />
     </task>
     <task id="LOCAL-00001" summary="changed nothing">
       <created>1540488695905</created>
@@ -379,31 +373,37 @@
       <option name="project" value="LOCAL" />
       <updated>1540488695905</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="connected to sqlite database example">
+      <created>1540637725953</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1540637725953</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11373000" />
+    <option name="totallyTimeSpent" value="19210000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="9" />
       <window_info anchor="bottom" id="TODO" order="15" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32968536" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32965517" />
       <window_info anchor="right" id="Palette&#9;" order="1" />
       <window_info id="Image Layers" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="14" />
-      <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.32827586" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="14" visible="true" weight="0.23724137" />
+      <window_info anchor="bottom" id="Run" order="4" weight="0.24827586" />
       <window_info anchor="bottom" id="Terminal" order="1" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="0" />
-      <window_info content_ui="combo" id="Project" order="3" sideWeight="0.6703755" visible="true" weight="0.171875" />
+      <window_info content_ui="combo" id="Project" order="3" sideWeight="0.6703755" visible="true" weight="0.08919271" />
       <window_info anchor="right" id="Database" order="8" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="4" weight="0.25" />
@@ -431,10 +431,10 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="changed nothing" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed nothing" />
+    <MESSAGE value="connected to sqlite database example" />
+    <option name="LAST_COMMIT_MESSAGE" value="connected to sqlite database example" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -606,13 +606,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sample/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/javafx-src.zip!/com/sun/javafx/application/LauncherImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="205">
@@ -620,13 +613,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/sample.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="11" lean-forward="true" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="35" lean-forward="true" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+        <state relative-caret-position="146">
+          <caret line="126" column="35" lean-forward="true" selection-start-line="126" selection-start-column="35" selection-end-line="126" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sample/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
@@ -639,7 +647,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.11494253" />
               </list>
             </option>
           </splitter-proportions>
@@ -687,7 +695,6 @@
             <option name="proportions">
               <list>
                 <option value="0.11494253" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
