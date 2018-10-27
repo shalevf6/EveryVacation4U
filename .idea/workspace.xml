@@ -18,6 +18,11 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/Vacation4U$Main.ic" NAME="Main Coverage Results" MODIFIED="1540650991350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>sample.*</FILTER>
+    </SUITE>
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -81,10 +86,12 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/sample/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="126" column="35" lean-forward="true" selection-start-line="126" selection-start-column="35" selection-end-line="126" selection-end-column="35" />
+            <state relative-caret-position="102">
+              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#11502#11503#0" expanded="true" />
+                <element signature="e#11530#11531#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -364,7 +371,7 @@
       <workItem from="1540567386554" duration="135000" />
       <workItem from="1540567936304" duration="2176000" />
       <workItem from="1540570554328" duration="728000" />
-      <workItem from="1540636702926" duration="8763000" />
+      <workItem from="1540636702926" duration="12900000" />
     </task>
     <task id="LOCAL-00001" summary="changed nothing">
       <created>1540488695905</created>
@@ -380,14 +387,29 @@
       <option name="project" value="LOCAL" />
       <updated>1540637725953</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="end of sqlite database example">
+      <created>1540645515056</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1540645515056</updated>
+    </task>
+    <task id="LOCAL-00004" summary="nothing">
+      <created>1540646081219</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1540646081219</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19210000" />
+    <option name="totallyTimeSpent" value="23347000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="9" />
       <window_info anchor="bottom" id="TODO" order="15" />
@@ -398,8 +420,9 @@
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="14" visible="true" weight="0.23724137" />
-      <window_info anchor="bottom" id="Run" order="4" weight="0.24827586" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.23724137" />
+      <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.3627586" />
+      <window_info anchor="right" id="Coverage" side_tool="true" weight="0.3294271" />
       <window_info anchor="bottom" id="Terminal" order="1" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="0" />
@@ -434,11 +457,13 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="changed nothing" />
     <MESSAGE value="connected to sqlite database example" />
-    <option name="LAST_COMMIT_MESSAGE" value="connected to sqlite database example" />
+    <MESSAGE value="end of sqlite database example" />
+    <MESSAGE value="nothing" />
+    <option name="LAST_COMMIT_MESSAGE" value="nothing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="6" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -452,6 +477,8 @@
           <caret line="43" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#11502#11503#0" expanded="true" />
+            <element signature="e#11530#11531#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -469,6 +496,8 @@
           <caret line="9" column="25" lean-forward="true" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#11502#11503#0" expanded="true" />
+            <element signature="e#11530#11531#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -623,10 +652,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="126" column="35" lean-forward="true" selection-start-line="126" selection-start-column="35" selection-end-line="126" selection-end-column="35" />
+        <state relative-caret-position="102">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#11502#11503#0" expanded="true" />
+            <element signature="e#11530#11531#0" expanded="true" />
           </folding>
         </state>
       </provider>

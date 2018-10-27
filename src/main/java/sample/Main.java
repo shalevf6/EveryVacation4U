@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import java.io.*;
 import java.sql.*;
 
 public class Main extends Application {
@@ -58,19 +58,71 @@ public class Main extends Application {
         app.selectAll();
         */
 
-        app.insert("Raw Materials", 3000);
-        app.insert("Semifinished Goods", 4000);
-        app.insert("Finished Goods", 5000);
-
-
-        app.addInventory("HP Laptop", 3, 100);
+//        app.insert("Raw Materials", 3000);
+//        app.insert("Semifinished Goods", 4000);
+//        app.insert("Finished Goods", 5000);
+//
+//
+//        app.addInventory("HP Laptop", 3, 100);
 
        app.selectAll("warehouses");
        System.out.println();
        app.selectAll("inventory");
        System.out.println();
        app.selectAll("materials");
+       System.out.println();
+       app.selectAll("innerJoin");
 
+    }
+
+    /**
+     * Update picture for a specific material
+     *
+     * @param materialId
+     * @param filename
+     */
+    public void updatePicture(int materialId, String filename) {
+        // update sql
+        String updateSQL = "UPDATE materials "
+                + "SET picture = ? "
+                + "WHERE id=?";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(updateSQL)) {
+
+            // set parameters
+            pstmt.setBytes(1, readFile(filename));
+            pstmt.setInt(2, materialId);
+
+            pstmt.executeUpdate();
+            System.out.println("Stored the file in the BLOB column.");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Read the file and returns the byte array
+     * @param file
+     * @return the bytes of the file
+     */
+    private byte[] readFile(String file) {
+        ByteArrayOutputStream bos = null;
+        try {
+            File f = new File(file);
+            FileInputStream fis = new FileInputStream(f);
+            byte[] buffer = new byte[1024];
+            bos = new ByteArrayOutputStream();
+            for (int len; (len = fis.read(buffer)) != -1;) {
+                bos.write(buffer, 0, len);
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+        } catch (IOException e2) {
+            System.err.println(e2.getMessage());
+        }
+        return bos != null ? bos.toByteArray() : null;
     }
 
     /**
@@ -108,6 +160,10 @@ public class Main extends Application {
             pstmt1.setString(1, material);
             int rowAffected = pstmt1.executeUpdate();
 
+
+            System.out.println("in transaction");
+            selectAll("materials");
+
             // get the material id
             rs = pstmt1.getGeneratedKeys();
             int materialId = 0;
@@ -135,6 +191,8 @@ public class Main extends Application {
                 }
             } catch (SQLException e2) {
                 System.out.println(e2.getMessage());
+                System.out.println("in transaction error");
+
             }
             System.out.println(e1.getMessage());
         } finally {
@@ -153,6 +211,7 @@ public class Main extends Application {
                 }
             } catch (SQLException e3) {
                 System.out.println(e3.getMessage());
+                System.out.println("in transaction error");
             }
         }
     }
@@ -236,45 +295,70 @@ public class Main extends Application {
      */
     public void selectAll(String table){
         String sql = "";
+        boolean initialized = false;
 
-        if (table.equals("warehouses"))
+        if (table.equals("warehouses")) {
             sql = "SELECT id, name, capacity FROM " + table;
+            initialized = true;
+        }
 
-        if (table.equals("inventory"))
+        if (!initialized && table.equals("inventory")) {
             sql = "SELECT warehouse_id, material_id, qty FROM " + table;
+            initialized = true;
+        }
 
-        if (table.equals("materials)"))
+        if (!initialized && table.equals("materials")) {
             sql = "SELECT id, description FROM " + table;
+            initialized = true;
+        }
 
-        try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
+        if (!initialized && table.equals("innerJoin")) {
+            sql = "SELECT name, description, qty\n" +
+                    "FROM materials\n" +
+            "INNER JOIN inventory ON inventory.material_id = materials.id\n" +
+            "INNER JOIN warehouses ON warehouses.id = inventory.warehouse_id;";
+            initialized = true;
+        }
 
-            // loop through the result set
-            if (table.equals("warehouses")) {
-                while (rs.next()) {
-                    System.out.println(rs.getInt("id") + "\t" +
-                            rs.getString("name") + "\t" +
-                            rs.getDouble("capacity"));
+        if (initialized) {
+            try (Connection conn = this.connect();
+                 Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+
+                // loop through the result set
+                if (table.equals("warehouses")) {
+                    while (rs.next()) {
+                        System.out.println(rs.getInt("id") + "\t" +
+                                rs.getString("name") + "\t" +
+                                rs.getDouble("capacity"));
+                    }
                 }
-            }
 
-            if (table.equals("inventory")) {
-                while (rs.next()) {
-                    System.out.println(rs.getInt("warehouse_id") + "\t" +
-                            rs.getInt("material_id") + "\t" +
-                            rs.getInt("qty"));
+                if (table.equals("inventory")) {
+                    while (rs.next()) {
+                        System.out.println(rs.getInt("warehouse_id") + "\t" +
+                                rs.getInt("material_id") + "\t" +
+                                rs.getInt("qty"));
+                    }
                 }
-            }
 
-            if (table.equals("materials)")) {
-                while (rs.next()) {
-                    System.out.println(rs.getInt("id") + "\t" +
-                            rs.getString("description"));
+                if (table.equals("materials")) {
+                    while (rs.next()) {
+                        System.out.println(rs.getInt("id") + "\t" +
+                                rs.getString("description"));
+                    }
                 }
+
+                if (table.equals("innerJoin")) {
+                    while (rs.next()) {
+                        System.out.println(rs.getString("name") + "\t" +
+                                rs.getString("description") + "\t" +
+                                rs.getDouble("qty"));
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
     }
 
