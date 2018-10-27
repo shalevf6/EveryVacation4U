@@ -235,7 +235,7 @@ public class Main extends Application {
      * select all rows in the warehouses table
      */
     public void selectAll(String table){
-        String sql = null;
+        String sql = "";
 
         if (table.equals("warehouses"))
             sql = "SELECT id, name, capacity FROM " + table;
