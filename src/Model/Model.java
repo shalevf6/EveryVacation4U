@@ -10,23 +10,19 @@ public class Model {
         this.connection = connection;
     }
 
-    boolean create(String userName, String password, String birthDate, String FirstName, String LastName, String city){
-
+    public boolean create(String userName, String password, String birthDate, String FirstName, String LastName, String city){
         return false;
     }
 
-    boolean update(String fieldToChange, String newInput) {
-
+    public boolean update(String fieldToChange, String newInput) {
         return false;
     }
 
-    boolean read(String userName) {
-
+    public boolean read(String userName) {
         return false;
     }
 
-    boolean delete(String userName) {
-
+    public boolean delete(String userName) {
         return false;
     }
 }
