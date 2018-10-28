@@ -1,4 +1,6 @@
 package View;
 
-public class MainController {
+import Controller.Controller;
+
+public class MainController extends IController {
 }
