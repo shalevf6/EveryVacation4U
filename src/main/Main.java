@@ -8,14 +8,25 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.sql.*;
 
+import View.View;
+import Model.Model;
+import Controller.Controller;
+import View.IController;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setTitle("Welcome!");
+        primaryStage.setScene(new Scene(root, 600, 600));
         primaryStage.show();
+        View view = new View();
+        Connection connection = connect();
+        Model model = new Model(connection);
+        Controller controller = new Controller(model, view);
+        IController.setController(controller);
+
         //connect();
         //createNewDatabase("test.db");
         String newTable1 = "CREATE TABLE IF NOT EXISTS materials (\n" +

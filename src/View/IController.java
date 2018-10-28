@@ -5,7 +5,7 @@ import Controller.Controller;
 public abstract class IController {
     protected static Controller controller;
 
-    public void setController(Controller itzik){
+    public static void setController(Controller itzik){
         controller = itzik;
     }
 }
