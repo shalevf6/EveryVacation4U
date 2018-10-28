@@ -17,8 +17,8 @@ public class Controller {
         boolean successful = model.create(userName,password,birthDate,firstName,lastName,city);
     }
 
-    void update(String fieldToChange, String newInput) {
-        boolean successful = model.update(fieldToChange,newInput);
+    void update(String userName, String fieldToChange, String newInput) {
+        boolean successful = model.update(userName, fieldToChange,newInput);
     }
 
     void read(String userName) {
