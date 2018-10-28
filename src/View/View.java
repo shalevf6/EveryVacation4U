@@ -3,6 +3,7 @@ package View;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -47,5 +48,8 @@ public class View {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public void popAlert(Alert al){
+        al.show();
     }
 }
