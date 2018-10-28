@@ -11,4 +11,20 @@ public class Controller {
         this.model = model;
         this.view = view;
     }
+
+    void create(String userName, String password, String birthDate, String FirstName, String LastName, String city){
+
+    }
+
+    void update(String fieldToChange, String newInput) {
+
+    }
+
+    void read(String userName) {
+
+    }
+
+    void delete(String userName) {
+
+    }
 }
