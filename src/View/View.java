@@ -40,7 +40,7 @@ public class View {
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource(fxmlPath));
             fxmlLoader.setController(new CreateController());
-            Scene scene = new Scene(root, 400, 350);
+            Scene scene = new Scene(root, 600, 600);
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
@@ -49,6 +49,7 @@ public class View {
             e.printStackTrace();
         }
     }
+
     public void popAlert(Alert al){
         al.show();
     }
