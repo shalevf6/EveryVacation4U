@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.*;
 import java.sql.*;
 
 import View.View;
@@ -23,66 +22,11 @@ public class Main extends Application {
         primaryStage.show();
         View view = new View();
         Connection connection = connect();
+        createNewTable();
         Model model = new Model(connection);
         Controller controller = new Controller(model, view);
         IController.setController(controller);
-
-
-
     }
-
-    /**
-     * Update picture for a specific material
-     *
-     * @param materialId
-     * @param filename
-     */
-    public void updatePicture(int materialId, String filename) {
-        // update sql
-        String updateSQL = "UPDATE materials "
-                + "SET picture = ? "
-                + "WHERE id=?";
-
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(updateSQL)) {
-
-            // set parameters
-            pstmt.setBytes(1, readFile(filename));
-            pstmt.setInt(2, materialId);
-
-            pstmt.executeUpdate();
-            System.out.println("Stored the file in the BLOB column.");
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * Read the file and returns the byte array
-     * @param file
-     * @return the bytes of the file
-     */
-    private byte[] readFile(String file) {
-        ByteArrayOutputStream bos = null;
-        try {
-            File f = new File(file);
-            FileInputStream fis = new FileInputStream(f);
-            byte[] buffer = new byte[1024];
-            bos = new ByteArrayOutputStream();
-            for (int len; (len = fis.read(buffer)) != -1;) {
-                bos.write(buffer, 0, len);
-            }
-        } catch (FileNotFoundException e) {
-            System.err.println(e.getMessage());
-        } catch (IOException e2) {
-            System.err.println(e2.getMessage());
-        }
-        return bos != null ? bos.toByteArray() : null;
-    }
-
-
-    /**
 
     /**
      * Connect to the test.db database
@@ -91,7 +35,7 @@ public class Main extends Application {
      */
     private Connection connect() {
         // SQLite connection string
-        String url = "jdbc:sqlite:sqlite_database_file_path";
+        String url = "jdbc:sqlite:resources/sqlite/vacation4u.db";
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
@@ -101,40 +45,25 @@ public class Main extends Application {
         return conn;
     }
 
-
     /**
      * Create a new table in the test database
      *
      */
-    public static void createNewTable(String sql) {
+    public static void createNewTable() {
         // SQLite connection string
-        String url = "jdbc:sqlite:sqlite_database_file_path";
-
+        String url = "jdbc:sqlite:resources/sqlite/vacation4u.db";
+        String sql = "CREATE TABLE IF NOT EXISTS users (\n"
+                + "	user_name text PRIMARY KEY,\n"
+                + "	password text NOT NULL,\n"
+                + "	birth_date text NOT NULL\n"
+                + "	first_name text NOT NULL\n"
+                + "	last_name text NOT NULL\n"
+                + "	city text NOT NULL\n"
+                + ");";
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
-     * Connect to a sample database
-     *
-     * @param fileName the database file name
-     */
-    public static void createNewDatabase(String fileName) {
-
-        String url = "jdbc:sqlite:sqlite_database_file_path" + fileName;
-
-        try (Connection conn = DriverManager.getConnection(url)) {
-            if (conn != null) {
-                DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A new database has been created.");
-            }
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
