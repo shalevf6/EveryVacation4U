@@ -1,6 +1,7 @@
 package View;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ChoiceBox;
@@ -15,6 +16,12 @@ public class UpdateController extends AController {
 
     public void getDetails() {
         String toCheck = choiceBox.getValue();
+        if(toCheck==null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("You must to choose one of the options from the choice box!");
+            alert.show();
+            return;
+        }
         if(!checkUserName(txtfld_user_name.getText()))
             return;
         if(toCheck.equals("Password"))
