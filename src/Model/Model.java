@@ -67,7 +67,7 @@ public class Model {
 
         String userSearch = this.read(userName)[1];
 
-        if(userSearch.equals("user name not exists")) {
+        if(userSearch.equals("fail to search the user")) {
             ans[0] = "F";
             ans[1] = "user name not exists";
             return ans;
@@ -117,7 +117,7 @@ public class Model {
             return ans;
         } catch (SQLException e) {
             ans[0] = "F";
-            ans[1] =  "user name not exists";
+            ans[1] =  "fail to search the user";
             return ans;
         }
 
@@ -130,7 +130,7 @@ public class Model {
 
         String userSearch = this.read(userName)[1];
 
-        if(userSearch.equals("user name not exists")) {
+        if(userSearch.equals("fail to search the user")) {
             ans[0] = "F";
             ans[1] = "user name not exists";
             return ans;
