@@ -1,12 +1,11 @@
 package View;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class CreateController extends IController {
+public class CreateController extends AController {
 
     public TextField txtfld_user_name;
     public TextField txtfld_password;
@@ -22,7 +21,7 @@ public class CreateController extends IController {
         !checkLastName(txtfld_last_name.getText())||!checkCity(txtfld_city.getText())){
             return;
         }
-        IController.controller.create(txtfld_user_name.getText(), txtfld_password.getText(), txtfld_birth_date.getText(),
+        AController.controller.create(txtfld_user_name.getText(), txtfld_password.getText(), txtfld_birth_date.getText(),
                 txtfld_first_name.getText(), txtfld_last_name.getText(), txtfld_city.getText());
     }
 

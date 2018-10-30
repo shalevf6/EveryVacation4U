@@ -1,14 +1,12 @@
 package View;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
-import sun.security.util.Password;
 
-public class UpdateController extends IController {
+public class UpdateController extends AController {
 
     public TextField txtfld_user_name;
     public ChoiceBox<String> choiceBox;
@@ -20,21 +18,21 @@ public class UpdateController extends IController {
         if(!checkUserName(txtfld_user_name.getText()))
             return;
         if(toCheck.equals("Password"))
-            if(!checkPassword(toCheck))
+            if(!checkPassword(txtfld_new_value.getText()))
                 return;
         if(toCheck.equals("Birth date"))
-            if(!checkBirthDate(toCheck))
+            if(!checkBirthDate(txtfld_new_value.getText()))
                 return;
         if(toCheck.equals("First name"))
-            if(!checkFirstName(toCheck))
+            if(!checkFirstName(txtfld_new_value.getText()))
                 return;
         if(toCheck.equals("Last name"))
-            if(!checkLastName(toCheck))
+            if(!checkLastName(txtfld_new_value.getText()))
                 return;
         if(toCheck.equals("City"))
-            if(!checkCity(toCheck))
+            if(!checkCity(txtfld_new_value.getText()))
                 return;
-        IController.controller.update(txtfld_user_name.getText(),choiceBox.getValue(),txtfld_new_value.getText());
+        AController.controller.update(txtfld_user_name.getText(),choiceBox.getValue(),txtfld_new_value.getText());
     }
 
     public void closeWindow(ActionEvent actionEvent) {

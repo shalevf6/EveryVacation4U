@@ -5,7 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import sun.security.util.Password;
 
-public abstract class IController {
+public abstract class AController {
     public static Controller controller;
 
     public static void setController(Controller itzik){
@@ -46,7 +46,7 @@ public abstract class IController {
         if (!checkIfAllFieldsFilled(toCheck))
             return false;
         for (int i = 0; i < toCheck.length() ; i++) {
-            if(!(Character.isLetter(toCheck.charAt(i))))
+            if(!(Character.isLetter(toCheck.charAt(i)))&&(!(toCheck.charAt(i)==' ')))
                 return false;
         }
         return true;
@@ -56,14 +56,14 @@ public abstract class IController {
         if (!checkIfAllFieldsFilled(toCheck))
             return false;
         for (int i = 0; i < toCheck.length() ; i++) {
-            if(!(Character.isDigit(toCheck.charAt(i))))
+            if(!(Character.isDigit(toCheck.charAt(i)))&&(!(toCheck.charAt(i)==' ')))
                 return false;
         }
         return true;
     }
 
     private boolean checkIfAllFieldsFilled(String toCheck){
-        if (toCheck==null || toCheck=="") {
+        if (toCheck==null || toCheck.equals("")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("All fields must be filled");
             alert.show();
@@ -75,7 +75,7 @@ public abstract class IController {
     protected boolean checkBirthDate(String toCheck){
         if (!checkIfAllFieldsFilled(toCheck))
             return false;
-        if(toCheck==null || toCheck=="" || !Character.isDigit(toCheck.charAt(0))||(!Character.isDigit(toCheck.charAt(1)))||(toCheck.charAt(2)!='/')
+        if(toCheck==null || toCheck.equals("") || !Character.isDigit(toCheck.charAt(0))||(!Character.isDigit(toCheck.charAt(1)))||(toCheck.charAt(2)!='/')
                 ||!Character.isDigit(toCheck.charAt(3))||(!Character.isDigit(toCheck.charAt(4)))||(toCheck.charAt(5)!='/')
                 ||!Character.isDigit(toCheck.charAt(6))||!Character.isDigit(toCheck.charAt(7))||!Character.isDigit(toCheck.charAt(8))
                 ||!Character.isDigit(toCheck.charAt(9))) {
