@@ -36,8 +36,6 @@ public class Controller {
 
     public void handleAlert(String al){
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("");
-        alert.setHeaderText("");
         alert.setContentText(al);
         view.handleAlert(alert);
     }
