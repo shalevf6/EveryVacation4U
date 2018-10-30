@@ -18,7 +18,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
         primaryStage.setTitle("Welcome!");
-        primaryStage.setScene(new Scene(root, 600, 600));
+        primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
         View view = new View();
         Connection connection = connect();
@@ -53,11 +53,11 @@ public class Main extends Application {
         // SQLite connection string
         String url = "jdbc:sqlite:resources/sqlite/vacation4u.db";
         String sql = "CREATE TABLE IF NOT EXISTS users (\n"
-                + "	user_name text PRIMARY KEY,\n"
+                + "	userName text PRIMARY KEY,\n"
                 + "	password text NOT NULL,\n"
-                + "	birth_date text NOT NULL\n"
-                + "	first_name text NOT NULL\n"
-                + "	last_name text NOT NULL\n"
+                + "	birthDate text NOT NULL,\n"
+                + "	firstName text NOT NULL,\n"
+                + "	lastName text NOT NULL,\n"
                 + "	city text NOT NULL\n"
                 + ");";
         try (Connection conn = DriverManager.getConnection(url);
