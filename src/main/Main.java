@@ -10,7 +10,7 @@ import java.sql.*;
 import View.View;
 import Model.Model;
 import Controller.Controller;
-import View.IController;
+import View.AController;
 
 public class Main extends Application {
 
@@ -24,7 +24,7 @@ public class Main extends Application {
         createNewTable();
         Model model = new Model();
         Controller controller = new Controller(model, view);
-        IController.setController(controller);
+        AController.setController(controller);
     }
 
     /**
