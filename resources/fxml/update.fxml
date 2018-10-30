@@ -12,8 +12,8 @@
     <children>
         <Text layoutX="136.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User name:" wrappingWidth="78.6708984375" />
         <TextField fx:id="txtfld_user_name" layoutX="222.0" layoutY="118.0" />
-      <Text layoutX="105.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Field to change:" wrappingWidth="109.6708984375" />
-      <ChoiceBox fx:id="choiceBox" layoutX="222.0" layoutY="164.0" prefHeight="31.0" prefWidth="187.0">
+        <Text layoutX="105.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Field to change:" wrappingWidth="109.6708984375" />
+        <ChoiceBox fx:id="choiceBox" layoutX="222.0" layoutY="164.0" prefHeight="31.0" prefWidth="187.0">
               <items>
                   <FXCollections fx:factory="observableArrayList">
                       <String fx:value="Password" />
@@ -23,9 +23,10 @@
                       <String fx:value="City" />
                   </FXCollections>
               </items>
-      </ChoiceBox>
-      <Text layoutX="136.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New value:" wrappingWidth="78.6708984375" />
-      <TextField fx:id="txtfld_new_value" layoutX="222.0" layoutY="205.0" />
-      <Button layoutX="287.0" layoutY="251.0" mnemonicParsing="false" onAction="#getDetails" text="OK" />
+        </ChoiceBox>
+        <Text layoutX="136.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New value:" wrappingWidth="78.6708984375" />
+        <TextField fx:id="txtfld_new_value" layoutX="222.0" layoutY="205.0" />
+        <Button layoutX="287.0" layoutY="251.0" mnemonicParsing="false" onAction="#getDetails" text="OK" />
+        <Button fx:id="closeButton" layoutX="282.0" layoutY="321.0" mnemonicParsing="false" onAction="#closeWindow" text="back" />
     </children>
 </AnchorPane>
