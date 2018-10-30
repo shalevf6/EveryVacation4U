@@ -1,27 +1,37 @@
 package Model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Model {
 
     private Connection connection;
 
-    public Model(Connection connection) {
-        this.connection = connection;
+    public Model() {
+        this.connection = this.connect();
+    }
+
+    private Connection connect() {
+        // SQLite connection string
+        String url = "jdbc:sqlite:resources/sqlite/vacation4u.db";
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
     }
 
     public String create(String userName, String password, String birthDate, String FirstName, String LastName, String city){
 
         String userSearch = this.read(userName);
-        if(!userSearch.equals("fail"))
-            return "user name all ready exist";
+        if(!userSearch.equals("user name not exist"))
+            return "user name already exists";
 
         String sql = "INSERT INTO users(userName, password, birthDate,FirstName, LastName, city) VALUES(?,?,?,?,?,?)";
 
-        try (Connection conn = this.connection;
+
+        try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, userName);
             pstmt.setString(2, password);
@@ -33,6 +43,7 @@ public class Model {
             pstmt.executeUpdate();
             return "user create success" ;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return " fail to create a new user ";
         }
 
@@ -41,11 +52,11 @@ public class Model {
     public String update(String userName ,String fieldToChange, String newInput) {
 
         String userSearch = this.read(userName);
-        if(userSearch.equals("fail"))
-            return "user name not exist";
+        if(userSearch.equals("user name not exist"))
+            return "user name not exists";
         String sql = "UPDATE users SET "+fieldToChange+" = ? WHERE  userName = ?";
 
-        try (Connection conn = this.connection;
+        try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
@@ -64,21 +75,21 @@ public class Model {
         String sql = "SELECT userName, birthDate,FirstName, LastName, city "
                 + "FROM users WHERE userName = ?";
 
-        try (Connection conn = this.connection;
+        try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
             pstmt.setString(1, userName);
-
             ResultSet rs=pstmt.executeQuery();
+
             String ans = "User Name: "+rs.getString("userName")
-                    +"BirthDate: "+rs.getString("birthDate")
-                    +"FirstName: "+rs.getString("FirstName")
-                    +"LastName: "+rs.getString("LastName")
-                    +"city: "+ rs.getString("city");
+                    +"\nBirthDate: "+rs.getString("birthDate")
+                    +"\nFirstName: "+rs.getString("FirstName")
+                    +"\nLastName: "+rs.getString("LastName")
+                    +"\ncity: "+ rs.getString("city");
             return ans;
         } catch (SQLException e) {
-            return "fail 1";
+            return "user name not exist";
         }
 
     }
@@ -87,18 +98,18 @@ public class Model {
     public String delete(String userName) {
 
         String userSearch = this.read(userName);
-        if(userSearch.equals("fail"))
+        if(userSearch.equals("user name not exist"))
             return "user name not exist";
         String sql = "DELETE FROM users WHERE userName = ?";
 
-        try (Connection conn = this.connection;
+        try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
             pstmt.setString(1, userName);
             // execute the delete statement
             pstmt.executeUpdate();
-            return "update success";
+            return "delete success";
         } catch (SQLException e) {
             return "fail to delete the user";
         }
