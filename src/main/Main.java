@@ -21,9 +21,8 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
         View view = new View();
-        Connection connection = connect();
         createNewTable();
-        Model model = new Model(connection);
+        Model model = new Model();
         Controller controller = new Controller(model, view);
         IController.setController(controller);
     }
