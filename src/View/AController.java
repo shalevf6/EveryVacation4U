@@ -75,7 +75,7 @@ public abstract class AController {
     protected boolean checkBirthDate(String toCheck){
         if (!checkIfAllFieldsFilled(toCheck))
             return false;
-        if(toCheck==null || toCheck.equals("") || !Character.isDigit(toCheck.charAt(0))||(!Character.isDigit(toCheck.charAt(1)))||(toCheck.charAt(2)!='/')
+        if(toCheck==null || toCheck.equals("") || toCheck.length()<10 || !Character.isDigit(toCheck.charAt(0))||(!Character.isDigit(toCheck.charAt(1)))||(toCheck.charAt(2)!='/')
                 ||!Character.isDigit(toCheck.charAt(3))||(!Character.isDigit(toCheck.charAt(4)))||(toCheck.charAt(5)!='/')
                 ||!Character.isDigit(toCheck.charAt(6))||!Character.isDigit(toCheck.charAt(7))||!Character.isDigit(toCheck.charAt(8))
                 ||!Character.isDigit(toCheck.charAt(9))) {
