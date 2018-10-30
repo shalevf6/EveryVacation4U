@@ -18,7 +18,18 @@ public class Controller {
     }
 
     public void update(String userName, String fieldToChange, String newInput) {
-        handleAlert(model.update(userName, fieldToChange,newInput));
+        String field = "";
+        if (fieldToChange.equals("Password"))
+            field = "password";
+        if (fieldToChange.equals("Birth date"))
+            field = "birthDate";
+        if (fieldToChange.equals("First name"))
+            field = "firstName";
+        if (fieldToChange.equals("Last name"))
+            field = "lastName";
+        if (fieldToChange.equals("City"))
+            field = "city";
+        handleAlert(model.update(userName, field,newInput));
 
     }
 
