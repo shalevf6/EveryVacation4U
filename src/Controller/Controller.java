@@ -22,7 +22,7 @@ public class Controller {
     }
 
     public void read(String userName) {
-        boolean successful = model.read(userName);
+        String successful = model.read(userName);
     }
 
     public void delete(String userName) {
