@@ -13,30 +13,37 @@ public class Model {
         this.connection = connection;
     }
 
-    public boolean create(String userName, String password, String birthDate, String FirstName, String LastName, String city){
+    public String create(String userName, String password, String birthDate, String FirstName, String LastName, String city){
 
-        String sql = "INSERT INTO warehouses(userName, password, birthDate,FirstName, LastName, city) VALUES(?,?,?,?,?,?)";
+        String userSearch = this.read(userName);
+        if(!userSearch.equals("fail"))
+            return "user name all ready exist";
+
+        String sql = "INSERT INTO users(userName, password, birthDate,FirstName, LastName, city) VALUES(?,?,?,?,?,?)";
 
         try (Connection conn = this.connection;
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, userName);
-                pstmt.setString(2, password);
-                pstmt.setString(3, birthDate);
-                pstmt.setString(4, FirstName);
-                pstmt.setString(5, LastName);
-                pstmt.setString(6, city);
+            pstmt.setString(1, userName);
+            pstmt.setString(2, password);
+            pstmt.setString(3, birthDate);
+            pstmt.setString(4, FirstName);
+            pstmt.setString(5, LastName);
+            pstmt.setString(6, city);
 
-                pstmt.executeUpdate();
-                return true;
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-            return false;
+            pstmt.executeUpdate();
+            return "user create success" ;
+        } catch (SQLException e) {
+            return " fail to create a new user ";
+        }
+
     }
 
-    public boolean update(String userName ,String fieldToChange, String newInput) {
+    public String update(String userName ,String fieldToChange, String newInput) {
 
-        String sql = "UPDATE warehouses SET "+fieldToChange+" = ? WHERE  userName = ?";
+        String userSearch = this.read(userName);
+        if(userSearch.equals("fail"))
+            return "user name not exist";
+        String sql = "UPDATE users SET "+fieldToChange+" = ? WHERE  userName = ?";
 
         try (Connection conn = this.connection;
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -44,18 +51,18 @@ public class Model {
             // set the corresponding param
             pstmt.setString(1, newInput);
             pstmt.setString(2,  userName);
-
             // update
             pstmt.executeUpdate();
+            return "update success" ;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            return "fail to update";
         }
-        return false;
+
     }
 
     public String read(String userName) {
         String sql = "SELECT userName, birthDate,FirstName, LastName, city "
-                + "FROM warehouses WHERE userName = ?";
+                + "FROM users WHERE userName = ?";
 
         try (Connection conn = this.connection;
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -71,15 +78,18 @@ public class Model {
                     +"city: "+ rs.getString("city");
             return ans;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            return "fail 1";
         }
-        return "";
+
     }
 
 
-    public boolean delete(String userName) {
+    public String delete(String userName) {
 
-        String sql = "DELETE FROM warehouses WHERE userName = ?";
+        String userSearch = this.read(userName);
+        if(userSearch.equals("fail"))
+            return "user name not exist";
+        String sql = "DELETE FROM users WHERE userName = ?";
 
         try (Connection conn = this.connection;
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -88,10 +98,10 @@ public class Model {
             pstmt.setString(1, userName);
             // execute the delete statement
             pstmt.executeUpdate();
-            return true;
+            return "update success";
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            return "fail to delete the user";
         }
-        return false;
+
     }
 }
