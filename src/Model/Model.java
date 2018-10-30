@@ -2,6 +2,7 @@ package Model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Model {
@@ -52,7 +53,7 @@ public class Model {
         return false;
     }
 
-    public boolean read(String userName) {
+    public String read(String userName) {
         String sql = "SELECT userName, birthDate,FirstName, LastName, city "
                 + "FROM warehouses WHERE userName = ?";
 
@@ -61,13 +62,18 @@ public class Model {
 
             // set the corresponding param
             pstmt.setString(1, userName);
-            // execute the delete statement
-            pstmt.executeUpdate();
-            return true;
+
+            ResultSet rs=pstmt.executeQuery();
+            String ans = "User Name: "+rs.getString("userName")
+                    +"BirthDate: "+rs.getString("birthDate")
+                    +"FirstName: "+rs.getString("FirstName")
+                    +"LastName: "+rs.getString("LastName")
+                    +"city: "+ rs.getString("city");
+            return ans;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return false;
+        return "";
     }
 
 
