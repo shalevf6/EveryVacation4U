@@ -13,7 +13,7 @@ public abstract class IController {
     }
 
     protected boolean checkUserName(String user_name) {
-        if (checkIfAllFieldsFilled(user_name))
+        if (!checkIfAllFieldsFilled(user_name))
             return false;
         if(user_name.length()<4){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -25,7 +25,7 @@ public abstract class IController {
     }
 
     protected boolean checkPassword(String password) {
-        if (checkIfAllFieldsFilled(password))
+        if (!checkIfAllFieldsFilled(password))
             return false;
         if((password.length()!=8)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -43,7 +43,7 @@ public abstract class IController {
     }
 
     protected boolean checkIfOnlyLetters(String toCheck){
-        if (checkIfAllFieldsFilled(toCheck))
+        if (!checkIfAllFieldsFilled(toCheck))
             return false;
         for (int i = 0; i < toCheck.length() ; i++) {
             if(!(Character.isLetter(toCheck.charAt(i))))
@@ -53,7 +53,7 @@ public abstract class IController {
     }
 
     protected boolean checkIfOnlyDigits(String toCheck){
-        if (checkIfAllFieldsFilled(toCheck))
+        if (!checkIfAllFieldsFilled(toCheck))
             return false;
         for (int i = 0; i < toCheck.length() ; i++) {
             if(!(Character.isDigit(toCheck.charAt(i))))
@@ -73,7 +73,7 @@ public abstract class IController {
     }
 
     protected boolean checkBirthDate(String toCheck){
-        if (checkIfAllFieldsFilled(toCheck))
+        if (!checkIfAllFieldsFilled(toCheck))
             return false;
         if(toCheck==null || toCheck=="" || !Character.isDigit(toCheck.charAt(0))||(!Character.isDigit(toCheck.charAt(1)))||(toCheck.charAt(2)!='/')
                 ||!Character.isDigit(toCheck.charAt(3))||(!Character.isDigit(toCheck.charAt(4)))||(toCheck.charAt(5)!='/')
@@ -88,7 +88,7 @@ public abstract class IController {
     }
 
     protected boolean checkFirstName(String first_name) {
-        if (checkIfAllFieldsFilled(first_name))
+        if (!checkIfAllFieldsFilled(first_name))
             return false;
         if (!checkIfOnlyLetters(first_name)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -100,7 +100,7 @@ public abstract class IController {
     }
 
     protected boolean checkLastName(String last_name){
-        if (checkIfAllFieldsFilled(last_name))
+        if (!checkIfAllFieldsFilled(last_name))
             return false;
         if(!checkIfOnlyLetters(last_name)){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -112,7 +112,7 @@ public abstract class IController {
     }
 
     protected boolean checkCity(String city){
-        if (checkIfAllFieldsFilled(city))
+        if (!checkIfAllFieldsFilled(city))
             return false;
         if(!checkIfOnlyLetters(city)){
             Alert alert = new Alert(Alert.AlertType.ERROR);
