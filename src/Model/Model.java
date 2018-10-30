@@ -21,7 +21,7 @@ public class Model {
         String[] ans = new String[2];
         String userSearch = this.read(userName)[1];
 
-        if(!userSearch.equals("fail to search the user")) {
+        if(!userSearch.equals("This user name doesn't exist in the database!")) {
             ans[0] = "F";
             ans[1] = "user name already exists";
             return ans;
@@ -61,7 +61,7 @@ public class Model {
 
         String userSearch = this.read(userName)[1];
 
-        if(userSearch.equals("fail to search the user")) {
+        if(userSearch.equals("This user name doesn't exist in the database!")) {
             ans[0] = "F";
             ans[1] = "user name not exists";
             return ans;
@@ -82,7 +82,7 @@ public class Model {
             return ans;
         } catch (SQLException e) {
             ans[0] = "F";
-            ans[1] =  " fail to create a new user ";
+            ans[1] =  " fail to update user ";
             return ans;
         }
 
@@ -100,6 +100,11 @@ public class Model {
             // set the corresponding param
             pstmt.setString(1, userName);
             ResultSet rs=pstmt.executeQuery();
+            if(!rs.next()){
+                ans[0]="F";
+                ans[1]="This user name doesn't exist in the database!";
+                return ans;
+            }
 
             String text = "User Name: "+rs.getString("userName")
                     +"\nBirthDate: "+rs.getString("birthDate")
@@ -124,7 +129,7 @@ public class Model {
 
         String userSearch = this.read(userName)[1];
 
-        if(userSearch.equals("fail to search the user")) {
+        if(userSearch.equals("This user name doesn't exist in the database!")) {
             ans[0] = "F";
             ans[1] = "user name not exists";
             return ans;

@@ -35,7 +35,7 @@ public abstract class AController {
         }
         else if (!checkIfOnlyDigits(password)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Password should be only letters");
+            alert.setContentText("Password should be only digits");
             alert.show();
             return false;
         }
