@@ -4,12 +4,6 @@ import java.sql.*;
 
 public class Model {
 
-    private Connection connection;
-
-    public Model() {
-        this.connection = this.connect();
-    }
-
     private Connection connect() {
         // SQLite connection string
         String url = "jdbc:sqlite:resources/sqlite/vacation4u.db";
