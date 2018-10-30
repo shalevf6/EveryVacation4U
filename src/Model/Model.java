@@ -27,7 +27,7 @@ public class Model {
         String[] ans = new String[2];
         String userSearch = this.read(userName)[1];
 
-        if(!userSearch.equals("user name not exist")) {
+        if(!userSearch.equals("fail to search the user")) {
             ans[0] = "F";
             ans[1] = "user name already exists";
             return ans;
@@ -67,9 +67,9 @@ public class Model {
 
         String userSearch = this.read(userName)[1];
 
-        if(!userSearch.equals("user name not exist")) {
+        if(userSearch.equals("user name not exists")) {
             ans[0] = "F";
-            ans[1] = "user name already exists";
+            ans[1] = "user name not exists";
             return ans;
 
         }
@@ -117,7 +117,7 @@ public class Model {
             return ans;
         } catch (SQLException e) {
             ans[0] = "F";
-            ans[1] =  "fail to search the user";
+            ans[1] =  "user name not exists";
             return ans;
         }
 
@@ -130,9 +130,9 @@ public class Model {
 
         String userSearch = this.read(userName)[1];
 
-        if(!userSearch.equals("user name not exist")) {
+        if(userSearch.equals("user name not exists")) {
             ans[0] = "F";
-            ans[1] = "user name already exists";
+            ans[1] = "user name not exists";
             return ans;
         }
         String sql = "DELETE FROM users WHERE userName = ?";
