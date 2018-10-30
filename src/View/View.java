@@ -50,7 +50,11 @@ public class View {
         }
     }
 
-    public void popAlert(Alert al){
+    /**
+     * Show the alert to the user screen.
+     * @param al - the alert to show on the screen.
+     */
+    public void handleAlert(Alert al){
         al.show();
     }
 }
