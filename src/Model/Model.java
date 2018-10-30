@@ -22,11 +22,17 @@ public class Model {
         return conn;
     }
 
-    public String create(String userName, String password, String birthDate, String FirstName, String LastName, String city){
+    public String[] create(String userName, String password, String birthDate, String FirstName, String LastName, String city){
 
-        String userSearch = this.read(userName);
-        if(!userSearch.equals("user name not exist"))
-            return "user name already exists";
+        String[] ans = new String[2];
+        String userSearch = this.read(userName)[1];
+
+        if(!userSearch.equals("user name not exist")) {
+            ans[0] = "F";
+            ans[1] = "user name already exists";
+            return ans;
+
+        }
 
         String sql = "INSERT INTO users(userName, password, birthDate,FirstName, LastName, city) VALUES(?,?,?,?,?,?)";
 
@@ -41,19 +47,32 @@ public class Model {
             pstmt.setString(6, city);
 
             pstmt.executeUpdate();
-            return "user create success" ;
+
+            ans[0] = "S";
+            ans[1] = "user create success";
+            return ans;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return " fail to create a new user ";
+            ans[0] = "F";
+            ans[1] =  " fail to create a new user ";
+            return ans;
+
         }
 
     }
 
-    public String update(String userName ,String fieldToChange, String newInput) {
+    public String[] update(String userName ,String fieldToChange, String newInput) {
 
-        String userSearch = this.read(userName);
-        if(userSearch.equals("user name not exist"))
-            return "user name not exists";
+        String[] ans = new String[2];
+
+        String userSearch = this.read(userName)[1];
+
+        if(!userSearch.equals("user name not exist")) {
+            ans[0] = "F";
+            ans[1] = "user name already exists";
+            return ans;
+
+        }
         String sql = "UPDATE users SET "+fieldToChange+" = ? WHERE  userName = ?";
 
         try (Connection conn = this.connect();
@@ -64,14 +83,20 @@ public class Model {
             pstmt.setString(2,  userName);
             // update
             pstmt.executeUpdate();
-            return "update success" ;
+            ans[0] = "S";
+            ans[1] = "update success";
+            return ans;
         } catch (SQLException e) {
-            return "fail to update";
+            ans[0] = "F";
+            ans[1] =  " fail to create a new user ";
+            return ans;
         }
 
     }
 
-    public String read(String userName) {
+    public String[] read(String userName) {
+
+        String[] ans = new String[2];
         String sql = "SELECT userName, birthDate,FirstName, LastName, city "
                 + "FROM users WHERE userName = ?";
 
@@ -82,24 +107,34 @@ public class Model {
             pstmt.setString(1, userName);
             ResultSet rs=pstmt.executeQuery();
 
-            String ans = "User Name: "+rs.getString("userName")
+            String text = "User Name: "+rs.getString("userName")
                     +"\nBirthDate: "+rs.getString("birthDate")
                     +"\nFirstName: "+rs.getString("FirstName")
                     +"\nLastName: "+rs.getString("LastName")
                     +"\ncity: "+ rs.getString("city");
+            ans[0] = "S";
+            ans[1] = text;
             return ans;
         } catch (SQLException e) {
-            return "user name not exist";
+            ans[0] = "F";
+            ans[1] =  "fail to search the user";
+            return ans;
         }
 
     }
 
 
-    public String delete(String userName) {
+    public String[] delete(String userName) {
 
-        String userSearch = this.read(userName);
-        if(userSearch.equals("user name not exist"))
-            return "user name not exist";
+        String[] ans = new String[2];
+
+        String userSearch = this.read(userName)[1];
+
+        if(!userSearch.equals("user name not exist")) {
+            ans[0] = "F";
+            ans[1] = "user name already exists";
+            return ans;
+        }
         String sql = "DELETE FROM users WHERE userName = ?";
 
         try (Connection conn = this.connect();
@@ -109,9 +144,13 @@ public class Model {
             pstmt.setString(1, userName);
             // execute the delete statement
             pstmt.executeUpdate();
-            return "delete success";
+            ans[0] = "S";
+            ans[1] = "delete success";
+            return ans;
         } catch (SQLException e) {
-            return "fail to delete the user";
+            ans[0] = "F";
+            ans[1] =  "fail to delete the user";
+            return ans;
         }
 
     }
