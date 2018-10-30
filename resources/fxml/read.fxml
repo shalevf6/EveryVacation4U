@@ -10,5 +10,6 @@
       <TextField fx:id="txtfld_user_name" layoutX="182.0" layoutY="169.0" />
       <Text layoutX="182.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter a user name:" wrappingWidth="158.6708984375" />
       <Button layoutX="390.0" layoutY="169.0" mnemonicParsing="false" onAction="#getUserName" text="OK" />
+      <Button fx:id="closeButton" layoutX="243.0" layoutY="273.0" mnemonicParsing="false" onAction="#closeWindow" text="back" />
    </children>
 </AnchorPane>
