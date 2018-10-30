@@ -18,89 +18,18 @@ public class CreateController extends IController {
 
     public void getDetails(ActionEvent actionEvent) {
         //check the input text of the fields, and alert if bad input is given by the user.
-        if(txtfld_user_name.getText().length()<4){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("User name should be at least 4 letters/digits");
-            alert.show();
+        if(!checkUserName(txtfld_user_name.getText())||!checkPassword(txtfld_password.getText())||!checkBirthDate(txtfld_birth_date.getText())||!checkFirstName(txtfld_first_name.getText())||
+        !checkLastName(txtfld_last_name.getText())||!checkCity(txtfld_city.getText())){
             return;
         }
-        if(!checkIfOnlyDigits(txtfld_password)){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Password should be only letters");
-            alert.show();
-            return;
-        }
-
-        if((txtfld_password.getText().length()!=8)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Password should be exactly 8 digits");
-            alert.show();
-            return;
-        }
-
-        if(!checkBirthDate(txtfld_birth_date)){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("You must maintain this structure ##/##/#### (birth date)");
-            alert.show();
-            return;
-        }
-
-        if(!checkIfOnlyLetters(txtfld_first_name)){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("First name must contain only letters");
-            alert.show();
-            return;
-        }
-        if(!checkIfOnlyLetters(txtfld_last_name)){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Last name must contain only letters");
-            alert.show();
-            return;
-        }
-        if(!checkIfOnlyLetters(txtfld_city)){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("City name must contain only letters");
-            alert.show();
-            return;
-        }
-            IController.controller.create(txtfld_user_name.getText(), txtfld_password.getText(), txtfld_birth_date.getText(),
+        IController.controller.create(txtfld_user_name.getText(), txtfld_password.getText(), txtfld_birth_date.getText(),
                 txtfld_first_name.getText(), txtfld_last_name.getText(), txtfld_city.getText());
     }
-
 
     public void closeWindow(ActionEvent actionEvent) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
-
-    private boolean checkIfOnlyLetters(TextField checkMe){
-        String toCheck = checkMe.getText();
-        for (int i = 0; i < toCheck.length() ; i++) {
-            if(!(Character.isLetter(toCheck.charAt(i))))
-                    return false;
-        }
-        return true;
-    }
-
-    private boolean checkIfOnlyDigits(TextField checkMe){
-        String toCheck = checkMe.getText();
-        for (int i = 0; i < toCheck.length() ; i++) {
-            if(!(Character.isDigit(toCheck.charAt(i))))
-                return false;
-        }
-        return true;
-    }
-
-    private boolean checkBirthDate(TextField checkMe){
-        String toCheck = checkMe.getText();
-        if(!Character.isDigit(toCheck.charAt(0))||(!Character.isDigit(toCheck.charAt(1)))||(toCheck.charAt(2)!='/')
-                ||!Character.isDigit(toCheck.charAt(3))||(!Character.isDigit(toCheck.charAt(4)))||(toCheck.charAt(5)!='/')
-                ||!Character.isDigit(toCheck.charAt(6))||!Character.isDigit(toCheck.charAt(7))||!Character.isDigit(toCheck.charAt(8))
-                ||!Character.isDigit(toCheck.charAt(9)))
-            return false;
-        return true;
-    }
-
 
 
 }
