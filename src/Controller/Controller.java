@@ -14,29 +14,31 @@ public class Controller {
     }
 
     public void create(String userName, String password, String birthDate, String firstName, String lastName, String city){
-        String alert = model.create(userName,password,birthDate,firstName,lastName,city);
-        handleAlert(alert);
+        handleAlert(model.create(userName,password,birthDate,firstName,lastName,city));
     }
 
     public void update(String userName, String fieldToChange, String newInput) {
-        String alert = model.update(userName, fieldToChange,newInput);
-        handleAlert(alert);
+        handleAlert(model.update(userName, fieldToChange,newInput));
 
     }
 
     public void read(String userName) {
-        String alert= model.read(userName);
-        handleAlert(alert);
+        handleAlert(model.read(userName));
     }
 
     public void delete(String userName) {
-        String alert = model.delete(userName);
-        handleAlert(alert);
+        handleAlert(model.delete(userName));
     }
 
-    public void handleAlert(String al){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setContentText(al);
+    public void handleAlert(String[] al){
+        Alert alert;
+        if(al[0].equals("F")) {
+            alert = new Alert(Alert.AlertType.ERROR);
+        }
+        else {
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+        }
+        alert.setContentText(al[1]);
         view.handleAlert(alert);
     }
 }
