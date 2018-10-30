@@ -45,9 +45,12 @@ public class Controller {
         Alert alert;
         if(al[0].equals("F")) {
             alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("The transaction failed");
+
         }
         else {
-            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("The transaction completed successfully");
         }
         alert.setContentText(al[1]);
         view.handleAlert(alert);

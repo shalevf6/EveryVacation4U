@@ -18,7 +18,7 @@ public class UpdateController extends AController {
         String toCheck = choiceBox.getValue();
         if(toCheck==null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("You must to choose one of the options from the choice box!");
+            alert.setContentText("You must choose one of the options from the choice box!");
             alert.show();
             return;
         }
