@@ -21,13 +21,13 @@ public class View {
         createNewWindow(title, fxmlPath);
     }
 
-    public void onUpdate() {
+    public void onDelete() {
         String title = "Delete User Form";
         String fxmlPath = "/fxml/delete.fxml";
         createNewWindow(title, fxmlPath);
     }
 
-    public void onDelete() {
+    public void onUpdate() {
         String title = "Update Details Form";
         String fxmlPath = "/fxml/update.fxml";
         createNewWindow(title, fxmlPath);
