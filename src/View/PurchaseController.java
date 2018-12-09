@@ -1,15 +1,13 @@
 package View;
 
-import Controller.Controller;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-import java.beans.EventHandler;
+
 
 
 public class PurchaseController extends AController {
@@ -26,7 +24,7 @@ public class PurchaseController extends AController {
 
 
 
-    public PurchaseController(int idVacation){
+    public PurchaseController(){
 
         text1 = new TextField();
         text2 = new TextField();
@@ -57,10 +55,15 @@ public class PurchaseController extends AController {
 
     }
 
+    public void setId(int idVacation){
+        this.idVacation = idVacation;
+    }
+
+
     public void show(){
         String title = "Payment";
         String fxmlPath = "/fxml/purchase.fxml";
-        createNewWindow(title, fxmlPath , 380 ,250);
+        createNewWindow(title, fxmlPath ,375 ,305);
     }
 
     public void onTyped(KeyEvent k){
