@@ -5,10 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sun.security.util.Password;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public abstract class AController {
 
@@ -74,6 +76,16 @@ public abstract class AController {
     protected boolean checkBirthDate(String toCheck){
         if (!checkIfAllFieldsFilled(toCheck))
             return false;
+        String[] insertedDate = toCheck.split("/");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate = dateFormat.format(new Date());
+        String[] currDate = currentDate.split("/");
+        int currYear = Integer.parseInt(currDate[2]);
+        int insertedYear = Integer.parseInt(insertedDate[2]);
+        if((currYear-insertedYear)<18) {
+            this.error("Minimum age for registration is 18 years of age");
+            return false;
+        }
         return true;
     }
 
@@ -154,15 +166,14 @@ public abstract class AController {
             stage.setTitle(title);
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource(fxmlPath));
-            //fxmlLoader.setController(new CreateController());
             Scene scene = new Scene(root, w, h);
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
-            //stage.showAndWait();
         }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }

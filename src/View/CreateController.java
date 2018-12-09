@@ -18,7 +18,6 @@ public class CreateController extends AController {
 
     public void getDetails(ActionEvent actionEvent) {
         //check the input text of the fields, and alert if bad input is given by the user.
-        //System.out.println(birth.getEditor().getText());
         String birthDay = birth.getEditor().getText();
         if(!checkUserName(txtfld_user_name.getText())||!checkPassword(txtfld_password.getText())||!checkBirthDate(birthDay)||!checkFirstName(txtfld_first_name.getText())||
         !checkLastName(txtfld_last_name.getText())||!checkCity(txtfld_city.getText())){

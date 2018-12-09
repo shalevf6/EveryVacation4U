@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="1001.0" stylesheets="@../css/addVacation.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SearchVacationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="1150.0" stylesheets="@../css/addVacation.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SearchVacationController">
     <children>
         <Text layoutX="518.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Vacation" textAlignment="CENTER" underline="true" wrappingWidth="251.724609375">
             <font>
@@ -129,7 +129,7 @@
       </Text>
       <Line endX="25.70709228515625" endY="-15.207107543945312" layoutX="285.0" layoutY="78.0" startX="-285.0" startY="-15.0" />
       <Line endX="-47.0" endY="403.0" layoutX="357.0" layoutY="125.0" startX="-47.5" startY="-61.5" />
-      <TableView fx:id="vacationTable" layoutX="310.0" layoutY="61.0" prefHeight="470.0" prefWidth="692.0">
+      <TableView fx:id="vacationTable" layoutX="310.0" layoutY="61.0" prefHeight="470.0" prefWidth="720.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="77.0" text="Id" />
           <TableColumn fx:id="colPrice" prefWidth="136.0" text="Price" />

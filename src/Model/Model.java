@@ -282,20 +282,16 @@ public class Model {
     public List<Vacation> searchVacation(String dateF,String dateT,int price,String textDes,int numOfTick,
                                    int textBaggage, String textAirline ,String textReturn ,String textType,String purchase , String Connecting_flight,
                                    String rent , int rate , String typeVacation){
-
-
-
         HashMap<String , String> stringMap = new HashMap<>();
-        HashMap<String ,Integer> intMap = new HashMap<>();
+        HashMap<String , Integer> intMap = new HashMap<>();
         List<Vacation> vacationList = new ArrayList<>();
-
-        String last = stringMap( stringMap , dateF,dateT,textDes,textAirline,textReturn,
+        String last = stringMap (stringMap , dateF,dateT,textDes,textAirline,textReturn,
                 textType,purchase,Connecting_flight,rent,typeVacation);
-        last =intMap(intMap , last , price , numOfTick ,  textBaggage , rate);
-
+        last = intMap(intMap , last , price , numOfTick ,  textBaggage , rate);
         if(intMap.size() == 0 && stringMap.size() == 0)
             return vacationList;
-        if(intMap.size() > 0){
+
+        /*if(intMap.size() > 0){
             int tmpValue =intMap.remove(last);
             last=last.substring(0,last.length()-5);
             intMap.put(last,tmpValue);
@@ -304,7 +300,7 @@ public class Model {
             last=last.substring(0,last.length()-5);
             stringMap.put(last,tmpValue);
         }
-
+*/
         String sql = "SELECT * FROM vacation WHERE ";
         //String sqltmp = "SELECT * FROM vacation";
 
@@ -314,7 +310,7 @@ public class Model {
         for(Map.Entry m:intMap.entrySet()){
             sql = sql+(m.getKey());
         }
-
+        sql = sql.substring(0,sql.length()-5);
         try (Connection conn = this.connect();
              PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
             int index = 1 ;
