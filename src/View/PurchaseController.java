@@ -108,9 +108,10 @@ public class PurchaseController extends AController {
 
 
 
-        AController.controller.buyVacation( idVacation , card , cardNumber);
+        String ans=AController.controller.buyVacation( idVacation , card , cardNumber);
 
-
+        if(ans == "S")
+            onBack();
 
     }
 

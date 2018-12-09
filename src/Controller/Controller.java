@@ -5,6 +5,7 @@ import View.Vacation;
 import View.View;
 import Model.Model;
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -16,6 +17,10 @@ public class Controller {
     public Controller(Model model, View view) {
         this.model = model;
         this.view = view;
+    }
+
+    public Stage createNewWindow(String title, String fxmlPath  , int w , int h){
+        return view.createNewWindow(title, fxmlPath  ,w ,  h);
     }
 
     public String create(String userName, String password, String birthDate, String firstName, String lastName, String city){
@@ -93,12 +98,12 @@ public class Controller {
         return list;
     }
 
-    public void buyVacation(int id_Vacation , String card , String cardNumber){
+    public String buyVacation(int id_Vacation , String card , String cardNumber){
 
 
         String[] ans = model.buyVacation(id_Vacation,card,cardNumber);
         handleAlert(ans);
-
+        return ans[0];
 
     }
 
