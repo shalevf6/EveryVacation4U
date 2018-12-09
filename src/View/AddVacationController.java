@@ -4,6 +4,9 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddVacationController extends AController {
 
@@ -48,6 +51,28 @@ public class AddVacationController extends AController {
           this.error("Return flight field have to write only Yes or No");
           return;
       }
+      String[] dateFrom = dateF.split("/");
+      String[] dateTo = dateT.split("/");
+      int fromYear = Integer.parseInt(dateFrom[2]);
+      int fromMonth = Integer.parseInt(dateFrom[1]);
+      int fromDay = Integer.parseInt(dateFrom[0]);
+      int toYear = Integer.parseInt(dateTo[2]);
+      int toMonth = Integer.parseInt(dateTo[1]);
+      int toDay = Integer.parseInt(dateTo[0]);
+      if ((toYear<fromYear) || (toYear==fromYear && toMonth<fromMonth) || (toYear==fromYear && toMonth==fromMonth && toDay<fromDay)) {
+          error("The number of vacation days must be positive");
+          return;
+      }
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate = dateFormat.format(new Date());
+        String[] currDate = currentDate.split("/");
+        int currYear = Integer.parseInt(currDate[2]);
+        int currMonth = Integer.parseInt(currDate[1]);
+        int currDay = Integer.parseInt(currDate[0]);
+        if ((currYear>fromYear) || (currYear==fromYear && currMonth>fromMonth) || (currYear==fromYear && currMonth==fromMonth && currDay>fromDay)){
+            this.error("The vacation date has already passed");
+            return;
+        }
 
 
 

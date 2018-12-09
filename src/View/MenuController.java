@@ -49,7 +49,7 @@ public class MenuController extends AController {
     public void onSearch(){
         String title = "Search A Vacation";
         String fxmlPath = "/fxml/searchVacation.fxml";
-        createNewWindow(title, fxmlPath , 600 , 400);
+        createNewWindow(title, fxmlPath , 1150 , 540);
 
     }
 
