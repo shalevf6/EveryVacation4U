@@ -75,8 +75,8 @@ public class Controller {
     public String addVacation(Vacation v){
 
 
-    String[] ans = model.addVacation(v);
 
+    String[] ans = model.addVacation(v);
     handleAlert(ans);
     return ans[0];
 
