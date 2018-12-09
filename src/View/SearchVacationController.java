@@ -70,6 +70,12 @@ public class SearchVacationController extends AController {
 
 
 
+    public void show(){
+        String title = "Search A Vacation";
+        String fxmlPath = "/fxml/searchVacation.fxml";
+        createNewWindow(title, fxmlPath , 1000 , 530);
+    }
+
     public void onBack(){
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
@@ -134,11 +140,15 @@ public class SearchVacationController extends AController {
 
     public void onSend(){
 
-        if(!checkBuy())
+        if(!checkBuy()) {
             error("Invalid vacation id");
+            return;
+        }
 
-        PurchaseController p = new PurchaseController(Integer.parseInt(buy.getText()));
+        PurchaseController p = new PurchaseController();
+        p.setId(Integer.parseInt(buy.getText()));
         p.show();
+        //p.setId(Integer.parseInt(buy.getText()));
 
     }
 

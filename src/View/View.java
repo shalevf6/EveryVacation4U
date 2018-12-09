@@ -34,18 +34,21 @@ public class View {
    public void onMenu(){
         String ans = AController.controller.login(txtfld_user_name.getText() ,txtfld_password.getText());
         if(ans == "S") {
-            String title = "Menu";
-            String fxmlPath = "/fxml/menu.fxml";
-            createNewWindow(title, fxmlPath , 600 , 400);
-            txtfld_user_name.setText("");
-            txtfld_password.setText("");
+           MenuController m = new MenuController();
+           m.show();
+           txtfld_user_name.setText("");
+           txtfld_password.setText("");
         }
+
    }
 
     public void onSearch(){
-        String title = "Search A Vacation";
-        String fxmlPath = "/fxml/searchVacation.fxml";
-        createNewWindow(title, fxmlPath , 1000 , 530);
+        SearchVacationController svc = new SearchVacationController();
+        svc.show();
+        //svc.setLogin(true);
+       // String title = "Search A Vacation";
+        //String fxmlPath = "/fxml/searchVacation.fxml";
+        //createNewWindow(title, fxmlPath , 1000 , 530);
 
     }
 

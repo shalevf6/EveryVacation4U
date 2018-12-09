@@ -11,7 +11,9 @@ import javafx.stage.Stage;
 import sun.security.util.Password;
 
 public abstract class AController {
+
     public static Controller controller;
+    protected Stage stage ;
 
     public static void setController(Controller itzik){
         controller = itzik;
@@ -148,7 +150,7 @@ public abstract class AController {
 
     protected void createNewWindow(String title, String fxmlPath  , int w , int h) {
         try {
-            Stage stage = new Stage();
+            stage = new Stage();
             stage.setTitle(title);
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource(fxmlPath));

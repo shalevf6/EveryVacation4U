@@ -412,8 +412,7 @@ public class Model {
         }
 
     }
-
-
+    
     private int returnMaxVacationId(){
 
         int ans = 0;
