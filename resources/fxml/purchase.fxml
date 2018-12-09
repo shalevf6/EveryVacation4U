@@ -7,30 +7,31 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="305.0" prefWidth="375.0" styleClass="bodybg" stylesheets="@../css/addVacation.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PurchaseController">
+<AnchorPane prefHeight="330.0" prefWidth="375.0" stylesheets="@../css/addVacation.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PurchaseController">
    <children>
-      <CheckBox fx:id="visaCheckBox" layoutX="147.0" layoutY="118.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="56.0" text="VISA" />
-      <CheckBox fx:id="PayPalCheckBox" layoutX="147.0" layoutY="144.0" mnemonicParsing="false" text="PayPal" />
-      <TextField fx:id="text1" layoutX="47.0" layoutY="215.0" onKeyTyped="#onTyped" prefHeight="25.0" prefWidth="59.0" />
-      <TextField fx:id="text2" layoutX="187.0" layoutY="215.0" onKeyTyped="#onTyped" prefHeight="25.0" prefWidth="59.0" />
-      <TextField fx:id="text3" layoutX="118.0" layoutY="215.0" onKeyTyped="#onTyped" prefHeight="25.0" prefWidth="59.0" />
-      <TextField fx:id="text4" layoutX="258.0" layoutY="215.0" onKeyTyped="#onTyped" prefHeight="25.0" prefWidth="59.0" />
-      <Text layoutX="144.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pay with" textAlignment="CENTER" underline="true" wrappingWidth="66.546875">
+      <CheckBox fx:id="visaCheckBox" layoutX="147.0" layoutY="142.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="56.0" text="VISA" />
+      <CheckBox fx:id="PayPalCheckBox" layoutX="147.0" layoutY="173.0" mnemonicParsing="false" text="PayPal" />
+      <TextField fx:id="text1" layoutX="59.0" layoutY="236.0" onKeyTyped="#onTyped" prefHeight="25.0" prefWidth="41.0" />
+      <Text layoutX="142.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pay with" textAlignment="CENTER" underline="true" wrappingWidth="66.546875">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Text layoutX="140.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Credit Card" textAlignment="CENTER" underline="true">
+      <Text layoutX="140.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Credit Card" textAlignment="CENTER" underline="true">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Button layoutX="211.0" layoutY="259.0" mnemonicParsing="false" onAction="#onBuy" text="Buy" />
-      <Button fx:id="back" layoutX="106.0" layoutY="259.0" mnemonicParsing="false" onAction="#onBack" text="Back" />
-      <Text layoutX="116.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment" textAlignment="CENTER" underline="true" wrappingWidth="117.34765630960464">
+      <Button layoutX="227.0" layoutY="284.0" mnemonicParsing="false" onAction="#onBuy" text="Buy" />
+      <Button fx:id="back" layoutX="108.0" layoutY="284.0" mnemonicParsing="false" onAction="#onBack" text="Back" />
+      <Text layoutX="128.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment" textAlignment="CENTER" underline="true" wrappingWidth="117.34765630960464">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Text>
+      <TextField fx:id="vacationId" alignment="CENTER" layoutX="112.0" layoutY="60.0" promptText="Vacation Id" />
+      <TextField fx:id="text2" layoutX="127.0" layoutY="236.0" onKeyTyped="#onTyped" prefHeight="25.0" prefWidth="41.0" />
+      <TextField fx:id="text4" layoutX="263.0" layoutY="236.0" onKeyTyped="#onTyped" prefHeight="25.0" prefWidth="41.0" />
+      <TextField fx:id="text3" layoutX="194.0" layoutY="236.0" onKeyTyped="#onTyped" prefHeight="25.0" prefWidth="41.0" />
    </children>
 </AnchorPane>
