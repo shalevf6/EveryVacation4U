@@ -1,8 +1,13 @@
 package View;
 
 import Controller.Controller;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import sun.security.util.Password;
 
 public abstract class AController {
@@ -16,9 +21,7 @@ public abstract class AController {
         if (!checkIfAllFieldsFilled(user_name))
             return false;
         if(user_name.length()<4){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("User name should be at least 4 letters/digits");
-            alert.show();
+            error("User name should be at least 4 letters/digits");
             return false;
         }
         return true;
@@ -28,15 +31,11 @@ public abstract class AController {
         if (!checkIfAllFieldsFilled(password))
             return false;
         if((password.length()!=8)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Password should be exactly 8 digits");
-            alert.show();
+            error("Password should be exactly 8 digits");
             return false;
         }
         else if (!checkIfOnlyDigits(password)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Password should be only digits");
-            alert.show();
+            error("Password should be only digits");
             return false;
         }
         return true;
@@ -64,9 +63,7 @@ public abstract class AController {
 
     private boolean checkIfAllFieldsFilled(String toCheck){
         if (toCheck==null || toCheck.equals("")) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("All fields must be filled");
-            alert.show();
+            error("All fields must be filled");
             return false;
         }
         return true;
@@ -75,15 +72,6 @@ public abstract class AController {
     protected boolean checkBirthDate(String toCheck){
         if (!checkIfAllFieldsFilled(toCheck))
             return false;
-        if(toCheck==null || toCheck.equals("") || !Character.isDigit(toCheck.charAt(0))||(!Character.isDigit(toCheck.charAt(1)))||(toCheck.charAt(2)!='/')
-                ||!Character.isDigit(toCheck.charAt(3))||(!Character.isDigit(toCheck.charAt(4)))||(toCheck.charAt(5)!='/')
-                ||!Character.isDigit(toCheck.charAt(6))||!Character.isDigit(toCheck.charAt(7))||!Character.isDigit(toCheck.charAt(8))
-                ||!Character.isDigit(toCheck.charAt(9))) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("You must maintain this structure ##/##/#### (birth date)");
-            alert.show();
-            return false;
-        }
         return true;
     }
 
@@ -91,9 +79,7 @@ public abstract class AController {
         if (!checkIfAllFieldsFilled(first_name))
             return false;
         if (!checkIfOnlyLetters(first_name)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("First name must contain only letters");
-            alert.show();
+            error("First name must contain only letters");
             return false;
         }
         return true;
@@ -103,9 +89,7 @@ public abstract class AController {
         if (!checkIfAllFieldsFilled(last_name))
             return false;
         if(!checkIfOnlyLetters(last_name)){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Last name must contain only letters");
-            alert.show();
+            error("Last name must contain only letters");
             return false;
         }
         return true;
@@ -115,11 +99,68 @@ public abstract class AController {
         if (!checkIfAllFieldsFilled(city))
             return false;
         if(!checkIfOnlyLetters(city)){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("City name must contain only letters");
-            alert.show();
+            error("City name must contain only letters");
             return false;
         }
         return true;
+    }
+
+    protected boolean checkInt(String word, String message ){
+
+        try{
+            Integer.parseInt(word);
+        }catch (NumberFormatException e){
+            this.error(message);
+            return false;
+        }
+        return true;
+
+    }
+
+    protected boolean checkIntOrNull(String word, String message ){
+
+        if(word.equals(""))
+            return true;
+        try{
+            Integer.parseInt(word);
+        }catch (NumberFormatException e){
+            this.error(message);
+            return false;
+        }
+        return true;
+
+    }
+
+    protected boolean yesOrNot(String word){
+
+        if(word.equals("yes") || word.equals("no") || word.equals("Yes") ||word.equals("No") )
+            return true;
+
+        return false;
+
+    }
+
+    protected void error(String line){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(line);
+        alert.show();
+    }
+
+    protected void createNewWindow(String title, String fxmlPath  , int w , int h) {
+        try {
+            Stage stage = new Stage();
+            stage.setTitle(title);
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent root = fxmlLoader.load(getClass().getResource(fxmlPath));
+            //fxmlLoader.setController(new CreateController());
+            Scene scene = new Scene(root, w, h);
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            //stage.showAndWait();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@../css/menu.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MenuController">
+    <opaqueInsets>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </opaqueInsets>
+    <children>
+            <ImageView fitHeight="69.0" fitWidth="66.0" onMouseClicked="#onRead" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../pictures/magnifying-glass.png" />
+                </image>
+            </ImageView>
+            <ImageView  onMouseClicked="#onSearch" fitHeight="69.0" fitWidth="66.0" layoutX="66.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../pictures/maps-and-flags.png" />
+                </image>
+            </ImageView>
+      <ImageView fitHeight="78.0" fitWidth="85.0" layoutX="516.0" layoutY="6.0" onMouseClicked="#onProfile" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/man.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="logout_BTN" layoutX="514.0" layoutY="84.0" mnemonicParsing="false" onAction="#onLogout" prefHeight="25.0" prefWidth="83.0" text="Logout" />
+      <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="132.0" layoutY="2.0" pickOnBounds="true" onMouseClicked="#addVacation" preserveRatio="true">
+         <image>
+            <Image url="@../pictures/advertisement.png" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>

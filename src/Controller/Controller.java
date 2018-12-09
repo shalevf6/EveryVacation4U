@@ -1,8 +1,13 @@
 package Controller;
 
+
+import View.Vacation;
 import View.View;
 import Model.Model;
 import javafx.scene.control.Alert;
+
+import java.sql.ResultSet;
+import java.util.List;
 
 public class Controller {
     private Model model;
@@ -13,8 +18,16 @@ public class Controller {
         this.view = view;
     }
 
-    public void create(String userName, String password, String birthDate, String firstName, String lastName, String city){
-        handleAlert(model.create(userName,password,birthDate,firstName,lastName,city));
+    public String create(String userName, String password, String birthDate, String firstName, String lastName, String city){
+        String[] ans = model.create(userName,password,birthDate,firstName,lastName,city) ;
+        if(ans[0] == "S"){
+            handleAlert(ans);
+            return ans[0];
+        }
+        else {
+            handleAlert(ans);
+            return ans[0];
+        }
     }
 
     public void update(String userName, String fieldToChange, String newInput) {
@@ -39,6 +52,54 @@ public class Controller {
 
     public void delete(String userName) {
         handleAlert(model.delete(userName));
+    }
+
+    public String login(String userName , String password) {
+        String[] ans = model.login(userName, password);
+        if(ans[0]=="F")
+            handleAlert(ans);
+        return ans[0];
+    }
+
+    public void logout() {
+        String[] ans = model.logOut();
+        if (ans[0] != "S")
+            handleAlert(ans);
+    }
+
+    public String addVacation(String dateF,String dateT,int Price,String textDes,int numOfTick,
+            int textBaggage, String textAirline ,String textReturn ,String textType,String purchase , String Connecting_flight,
+                            String roomRent , int rating , String typeVacation){
+
+
+    String[] ans = model.addVacation(dateF,dateT,Price,textDes,numOfTick,
+        textBaggage,textAirline ,textReturn ,textType,purchase , Connecting_flight,
+                roomRent , rating , typeVacation);
+
+    handleAlert(ans);
+    return ans[0];
+
+    }
+
+
+    public List<Vacation> searchVacation(String dateF, String dateT, int price, String textDes, int numOfTick,
+                                    int textBaggage, String textAirline , String textReturn , String textType, String purchase , String Connecting_flight,
+                                    String roomRent , int rating , String typeVacation){
+
+        List<Vacation> list= model.searchVacation(dateF, dateT,price,textDes,numOfTick, textBaggage, textAirline ,textReturn ,textType, purchase , Connecting_flight,
+                 roomRent ,  rating ,typeVacation) ;
+
+
+        return list;
+    }
+
+    public void buyVacation(int id_Vacation , String card , String cardNumber){
+
+
+        String[] ans = model.buyVacation(id_Vacation,card,cardNumber);
+        handleAlert(ans);
+
+
     }
 
     public void handleAlert(String[] al){
