@@ -4,43 +4,64 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class View {
 
+    public TextField txtfld_user_name;
+    public TextField txtfld_password;
+
     public void onCreate() {
         String title = "Create A User Form";
         String fxmlPath = "/fxml/create.fxml";
-        createNewWindow(title, fxmlPath);
+        createNewWindow(title, fxmlPath , 600 , 400);
     }
 
     public void onRead() {
         String title = "Search A User Form";
         String fxmlPath = "/fxml/read.fxml";
-        createNewWindow(title, fxmlPath);
-    }
-
-    public void onDelete() {
-        String title = "Delete User Form";
-        String fxmlPath = "/fxml/delete.fxml";
-        createNewWindow(title, fxmlPath);
+        createNewWindow(title, fxmlPath , 600 , 400);
     }
 
     public void onUpdate() {
         String title = "Update Details Form";
         String fxmlPath = "/fxml/update.fxml";
-        createNewWindow(title, fxmlPath);
+        createNewWindow(title, fxmlPath , 600 ,400);
     }
 
-    private void createNewWindow(String title, String fxmlPath) {
+   public void onMenu(){
+        String ans = AController.controller.login(txtfld_user_name.getText() ,txtfld_password.getText());
+        if(ans == "S") {
+            String title = "Menu";
+            String fxmlPath = "/fxml/menu.fxml";
+            createNewWindow(title, fxmlPath , 600 , 400);
+            txtfld_user_name.setText("");
+            txtfld_password.setText("");
+        }
+   }
+
+    public void onSearch(){
+        String title = "Search A Vacation";
+        String fxmlPath = "/fxml/searchVacation.fxml";
+        createNewWindow(title, fxmlPath , 1000 , 530);
+
+    }
+
+
+
+
+
+
+    private void createNewWindow(String title, String fxmlPath, int width , int height) {
         try {
             Stage stage = new Stage();
             stage.setTitle(title);
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource(fxmlPath));
             fxmlLoader.setController(new CreateController());
-            Scene scene = new Scene(root, 600, 400);
+            Scene scene = new Scene(root, width, height);
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();

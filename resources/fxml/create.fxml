@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.CreateController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@../css/create.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.CreateController">
    <children>
-      <TextField fx:id="txtfld_user_name" layoutX="324.0" layoutY="100.0" />
-      <TextField fx:id="txtfld_password" layoutX="324.0" layoutY="141.0" />
-      <TextField fx:id="txtfld_birth_date" layoutX="324.0" layoutY="186.0" />
-      <TextField fx:id="txtfld_first_name" layoutX="324.0" layoutY="228.0" />
-      <Text layoutX="197.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter the new user's details:" underline="true" />
-      <TextField fx:id="txtfld_last_name" layoutX="324.0" layoutY="270.0" />
-      <TextField fx:id="txtfld_city" layoutX="324.0" layoutY="312.0" />
-      <Text layoutX="99.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username (minimum 4 letters)" />
-      <Text layoutX="44.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password (8 digits long, only numbers)" />
-      <Text layoutX="138.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date (##/##/####)" />
-      <Text layoutX="216.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
-      <Text layoutX="217.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
-      <Text layoutX="252.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City" />
-      <Button fx:id="closeButton" layoutX="165.0" layoutY="355.0" mnemonicParsing="false" onAction="#closeWindow" text="back" />
-      <Button layoutX="397.0" layoutY="355.0" mnemonicParsing="false" onAction="#getDetails" text="OK" />
+      <TextField fx:id="txtfld_user_name" alignment="CENTER" layoutX="226.0" layoutY="72.0" prefHeight="25.0" prefWidth="149.0" promptText="Username " />
+      <TextField fx:id="txtfld_first_name" alignment="CENTER" layoutX="226.0" layoutY="227.0" prefHeight="25.0" prefWidth="149.0" promptText="First Name" />
+      <Text layoutX="240.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up" textAlignment="CENTER" underline="true" wrappingWidth="120.724609375">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtfld_last_name" alignment="CENTER" layoutX="226.0" layoutY="264.0" prefHeight="25.0" prefWidth="149.0" promptText="Last Name" />
+      <TextField fx:id="txtfld_city" alignment="CENTER" layoutX="226.0" layoutY="302.0" prefHeight="25.0" prefWidth="149.0" promptText="City" />
+      <Button fx:id="closeButton" layoutX="148.0" layoutY="367.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="25.0" prefWidth="66.0" text="back" />
+      <Button layoutX="392.0" layoutY="367.0" mnemonicParsing="false" onAction="#getDetails" prefHeight="25.0" prefWidth="49.0" text="OK" />
+      <Text fill="#bc1b1b" layoutX="227.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*minimum 4 letters" textAlignment="CENTER" wrappingWidth="146.59570455551147" />
+      <Text fill="#bc1b1b" layoutX="227.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*8 digits long, only numbers" wrappingWidth="162.99999648332596" />
+      <PasswordField fx:id="txtfld_password" alignment="CENTER" layoutX="226.0" layoutY="131.0" prefHeight="25.0" prefWidth="149.0" promptText="Password " />
+      <DatePicker fx:id="birth" layoutX="226.0" layoutY="190.0" prefHeight="25.0" prefWidth="149.0" promptText="Birth Date" />
    </children>
 </AnchorPane>

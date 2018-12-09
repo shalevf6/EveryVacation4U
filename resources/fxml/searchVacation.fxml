@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="1001.0" stylesheets="@../css/addVacation.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SearchVacationController">
+    <children>
+        <Text layoutX="518.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Vacation" textAlignment="CENTER" underline="true" wrappingWidth="251.724609375">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Text>
+        <TextField fx:id="number_of_tickets" alignment="CENTER" layoutX="165.0" layoutY="273.0" prefHeight="25.0" prefWidth="107.0" promptText="Number of tickets">
+         <font>
+            <Font size="11.0" />
+         </font></TextField>
+        <TextField fx:id="destination" alignment="CENTER" layoutX="139.0" layoutY="205.0" prefHeight="30.0" prefWidth="107.0" promptText="Destination ">
+            <font>
+                <Font size="14.0" />
+            </font></TextField>
+        <Button fx:id="closeButton" layoutX="23.0" layoutY="490.0" mnemonicParsing="false" onAction="#onBack" text="back" />
+        <Button fx:id="ok" layoutX="94.0" layoutY="490.0" mnemonicParsing="false" onAction="#onSearch" text="Search" />
+        <TextField fx:id="airline" alignment="CENTER" layoutX="139.0" layoutY="235.0" prefHeight="30.0" prefWidth="107.0" promptText="Airlane">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="baggage" alignment="CENTER" layoutX="4.0" layoutY="205.0" prefHeight="30.0" prefWidth="107.0" promptText="Baggage">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="price" alignment="CENTER" layoutX="5.0" layoutY="141.0" prefHeight="30.0" prefWidth="107.0" promptText="Price " styleClass="text-field" stylesheets="@../css/addVacation.css">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextField>
+        <Text layoutX="3.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type of airline tickets" wrappingWidth="125.2421875">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Text>
+        <ChoiceBox fx:id="type" layoutX="158.0" layoutY="346.0" prefHeight="25.0" prefWidth="107.0" styleClass="text-field" stylesheets="@../css/addVacation.css">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Adult" />
+                    <String fx:value="Child" />
+                    <String fx:value="Baby" />
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+        <DatePicker fx:id="dateFrom" layoutX="5.0" layoutY="180.0" prefHeight="25.0" prefWidth="107.0" promptText="From" />
+        <DatePicker fx:id="dateTo" layoutX="137.0" layoutY="180.0" prefHeight="25.0" prefWidth="107.0" promptText="To" />
+        <TextField fx:id="return_flight" alignment="CENTER" layoutX="6.0" layoutY="273.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="151.0" promptText="Is the return flight included?">
+            <font>
+                <Font size="11.0" />
+            </font>
+        </TextField>
+      <Text layoutX="6.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating of accommodation" wrappingWidth="150.9999978542328">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <TextField fx:id="roomRent" alignment="CENTER" layoutX="2.0" layoutY="396.0" prefHeight="30.0" prefWidth="260.0" promptText="Is the hotel / B &amp; B / roomRent is included in the price?">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="Connecting_flight" alignment="CENTER" layoutX="5.0" layoutY="235.0" prefHeight="30.0" prefWidth="107.0" promptText="Connecting flight" />
+      <Text layoutX="6.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type of vacation" wrappingWidth="98.2421875">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+      <ChoiceBox fx:id="typeVacation" layoutX="101.0" layoutY="375.0" prefHeight="25.0" prefWidth="82.0" styleClass="text-field">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="Urban" />
+               <String fx:value="Exotic" />
+               <String fx:value="Combined" />
+            </FXCollections>
+         </items>
+      </ChoiceBox>
+      <ChoiceBox fx:id="rating" layoutX="134.0" layoutY="314.0" prefHeight="25.0" prefWidth="98.0" styleClass="text-field">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="1" />
+               <String fx:value="2" />
+               <String fx:value="3" />
+               <String fx:value="4" />
+               <String fx:value="5" />
+            </FXCollections>
+         </items>
+      </ChoiceBox>
+      <TextField fx:id="purchase" alignment="CENTER" layoutX="2.0" layoutY="434.0" prefHeight="30.0" prefWidth="209.0" promptText="Is it possible to purchase some of the tickets?">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </TextField>
+      <Text fill="#d72424" layoutX="66.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Yes/No" textAlignment="CENTER" wrappingWidth="53.68359375">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Text>
+      <Text fill="#d72424" layoutX="66.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Yes/No" textAlignment="CENTER" wrappingWidth="53.68359375">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Text>
+      <Text fill="#d72424" layoutX="39.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Yes/No" textAlignment="CENTER" wrappingWidth="53.68359375">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
+      <Text fill="#d72424" layoutX="55.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Yes/No" textAlignment="CENTER" wrappingWidth="53.68359375">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Text>
+      <Line endX="25.70709228515625" endY="-15.207107543945312" layoutX="285.0" layoutY="78.0" startX="-285.0" startY="-15.0" />
+      <Line endX="-47.0" endY="403.0" layoutX="357.0" layoutY="125.0" startX="-47.5" startY="-61.5" />
+      <TableView fx:id="vacationTable" layoutX="310.0" layoutY="61.0" prefHeight="470.0" prefWidth="692.0">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="77.0" text="Id" />
+          <TableColumn fx:id="colPrice" prefWidth="136.0" text="Price" />
+            <TableColumn fx:id="colDateF" prefWidth="137.0" text="From" />
+            <TableColumn fx:id="colDateT" prefWidth="121.0" text="To" />
+            <TableColumn fx:id="colBaggage" prefWidth="120.0" text="Baggage" />
+            <TableColumn fx:id="colDes" prefWidth="141.0" text="Destination " />
+            <TableColumn fx:id="colConnectingFlight" prefWidth="145.0" text="Connecting flight" />
+            <TableColumn fx:id="colAirline" prefWidth="116.0" text="Airline" />
+            <TableColumn fx:id="colNumberTickets" prefWidth="125.0" text="Number of tickets" />
+            <TableColumn fx:id="colReturnFlight" prefWidth="113.0" text="Return flight" />
+            <TableColumn fx:id="colTicketsType" prefWidth="160.0" text="Type of airline tickets" />
+            <TableColumn fx:id="colRating" prefWidth="100.0" text="Rating" />
+            <TableColumn fx:id="colTypeVacation" prefWidth="160.0" text="Type of vacation" />
+            <TableColumn fx:id="colPurchase" prefWidth="206.0" text="Purchase some of the tickets" />
+            <TableColumn fx:id="colRoomRent" prefWidth="110.0" text="Room rent" />
+        </columns>
+      </TableView>
+      <TextField fx:id="buy" alignment="CENTER" layoutX="38.0" layoutY="64.0" prefHeight="30.0" prefWidth="241.0" promptText="Write the id of the vacation you want to purchase " styleClass="text-field" stylesheets="@../css/addVacation.css">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </TextField>
+      <Button fx:id="send" onAction="#onSend" alignment="CENTER" layoutX="93.0" layoutY="105.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Send a purchase request" textAlignment="CENTER">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <Line endX="25.70709228515625" endY="-15.207107543945312" layoutX="288.0" layoutY="156.0" startX="-285.0" startY="-15.0" />
+    </children>
+    <styleClass>
+        <String fx:value="text-field" />
+        <String fx:value="choice-box" />
+    </styleClass>
+</AnchorPane>
