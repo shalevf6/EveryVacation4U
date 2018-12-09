@@ -161,19 +161,7 @@ public abstract class AController {
     }
 
     protected void createNewWindow(String title, String fxmlPath  , int w , int h) {
-        try {
-            stage = new Stage();
-            stage.setTitle(title);
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            Parent root = fxmlLoader.load(getClass().getResource(fxmlPath));
-            Scene scene = new Scene(root, w, h);
-            stage.setScene(scene);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+       this.stage= controller.createNewWindow(title , fxmlPath , w , h);
     }
 
 }

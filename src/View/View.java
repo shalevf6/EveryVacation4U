@@ -57,7 +57,7 @@ public class View {
 
 
 
-    private void createNewWindow(String title, String fxmlPath, int width , int height) {
+    public Stage createNewWindow(String title, String fxmlPath, int width , int height) {
         try {
             Stage stage = new Stage();
             stage.setTitle(title);
@@ -68,10 +68,14 @@ public class View {
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
+            return stage;
         }
         catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
+
+
     }
 
     /**

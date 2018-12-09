@@ -232,9 +232,7 @@ public class Model {
 
     }
 
-    public String[] addVacation(String dateF,String dateT,int price,String textDes,int numOfTick,
-                            int textBaggage, String textAirline ,String textReturn ,String textType,String purchase , String Connecting_flight,
-                            String roomRent , int rating , String typeVacation){
+    public String[] addVacation(Vacation v){
         String[] ans = new String[2];
 
         String sql = "INSERT INTO vacation(id,price,airline,date_from,date_to,number_of_tickets,destination,return_flight,type_of_tickets," +
@@ -244,20 +242,20 @@ public class Model {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             conn.setAutoCommit(false);
             pstmt.setInt(1,id);
-            pstmt.setInt(2, price);
-            pstmt.setString(3, textAirline);
-            pstmt.setString(4, dateF);
-            pstmt.setString(5, dateT);
-            pstmt.setInt(6, numOfTick);
-            pstmt.setString(7, textDes);
-            pstmt.setString(8, textReturn);
-            pstmt.setString(9, textType);
-            pstmt.setInt(10, textBaggage);
-            pstmt.setString(11, purchase);
-            pstmt.setString(12, Connecting_flight);
-            pstmt.setString(13, roomRent);
-            pstmt.setInt(14,rating);
-            pstmt.setString(15, typeVacation);
+            pstmt.setInt(2, v.getPrice());
+            pstmt.setString(3, v.getAirLine());
+            pstmt.setString(4, v.getDateF());
+            pstmt.setString(5, v.getDateT());
+            pstmt.setInt(6, v.getNumOfTickts());
+            pstmt.setString(7, v.getDestination());
+            pstmt.setString(8, v.getReturnFlight());
+            pstmt.setString(9, v.getTicktType());
+            pstmt.setInt(10, v.getBaggage());
+            pstmt.setString(11, v.getPurchase());
+            pstmt.setString(12, v.getConnectingFlight());
+            pstmt.setString(13, v.getRoomRent());
+            pstmt.setInt(14,v.getRating());
+            pstmt.setString(15, v.getVacationType());
 
             pstmt.executeUpdate();
 
@@ -366,6 +364,13 @@ public class Model {
             return ans;
         }
         String curUser = getCurUser();
+        String idSeller = getIdSeller(id_Vacation);
+
+        if(curUser.equals(idSeller)){
+            ans[0] = "F";
+            ans[1] = "User can't buy his own vacation";
+            return ans;
+        }
         if(curUser.equals("")){
             ans[0] =  "F" ;
             ans[1] = " You need to log in to purchase a vacation" ;
@@ -376,15 +381,19 @@ public class Model {
             ans[1] = "Fail to delete vacation" ;
             return ans;
         }
+
+
+
         if(!deleteUserVacation(id_Vacation , curUser)){
             ans[0] = "F";
             ans[1] = "Fail to delete user vacation" ;
             return ans;
         }
 
-        String sql =  "INSERT INTO sqlPayment(idPayment,idVacation,idBuyer,idSeller,card,cardNumber) VALUES(?,?,?,?,?,?)";
+        String sql =  "INSERT INTO userPayment(idPayment,idVacation,idBuyer,idSeller,card,cardNumber) VALUES(?,?,?,?,?,?)";
+
         int idPayment = returnMaxPaymentId();
-        String idSeller = getIdSeller(id_Vacation);
+
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -455,6 +464,7 @@ public class Model {
         String ans = "" ;
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1,idVacation);
             ResultSet rs = pstmt.executeQuery();
             if (!rs.next()) {
                 return ans;
@@ -646,8 +656,7 @@ public class Model {
 
     private boolean deleteUserVacation(int vacation_id , String userName){
 
-
-        String sql = "DELETE FROM userVacation WHERE userName = ? AND vacation = ?";
+        String sql = "DELETE FROM userVacation WHERE idUser = ? AND idVacation = ?";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -658,6 +667,7 @@ public class Model {
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
         }
 
@@ -677,6 +687,7 @@ public class Model {
             String userName = rs.getString("userName");
             return userName;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return null;
         }
 
@@ -694,9 +705,9 @@ public class Model {
             pstmt.setInt(1,id);
             // execute the delete statement
             pstmt.executeUpdate();
-
             return true;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
         }
 
