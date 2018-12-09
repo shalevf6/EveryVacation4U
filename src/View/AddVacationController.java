@@ -101,9 +101,11 @@ public class AddVacationController extends AController {
             return;
         }
 
-        String ans = AController.controller.addVacation(dateF,dateT,numPrice,textDes,numberOfTickets,
+        Vacation v = setVacation(dateF,dateT,numPrice,textDes,numberOfTickets,
                 baggageWeight ,textAirline ,textReturn ,textType,advanced[0],advanced[1],advanced[2],
                 rank,advanced[4]);
+
+        String ans = AController.controller.addVacation(v);
 
         if(ans.equals("S")) {
             onBack();
@@ -132,7 +134,27 @@ public class AddVacationController extends AController {
 
     }
 
+    private Vacation setVacation(String dateF,String dateT,int Price,String textDes,int numOfTick,
+                                 int textBaggage, String textAirline ,String textReturn ,String textType,String purchase , String Connecting_flight,
+                                 String roomRent , int rating , String typeVacation){
+        Vacation v = new Vacation();
+        v.setVacationType(typeVacation);
+        v.setTicktType(textType);
+        v.setRoomRent(roomRent);
+        v.setReturnFlight(textReturn);
+        v.setRating(rating);
+        v.setPurchase(purchase);
+        v.setPrice(Price);
+        v.setNumOfTickts(numOfTick);
+        v.setDestination(textDes);
+        v.setDateT(dateT);
+        v.setDateF(dateF);
+        v.setConnectingFlight(Connecting_flight);
+        v.setBaggage(textBaggage);
+        v.setAirLine(textAirline);
+        return v;
 
+    }
 
 
 

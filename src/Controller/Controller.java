@@ -72,14 +72,10 @@ public class Controller {
             handleAlert(ans);
     }
 
-    public String addVacation(String dateF,String dateT,int Price,String textDes,int numOfTick,
-            int textBaggage, String textAirline ,String textReturn ,String textType,String purchase , String Connecting_flight,
-                            String roomRent , int rating , String typeVacation){
+    public String addVacation(Vacation v){
 
 
-    String[] ans = model.addVacation(dateF,dateT,Price,textDes,numOfTick,
-        textBaggage,textAirline ,textReturn ,textType,purchase , Connecting_flight,
-                roomRent , rating , typeVacation);
+    String[] ans = model.addVacation(v);
 
     handleAlert(ans);
     return ans[0];
