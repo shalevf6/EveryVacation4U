@@ -15,6 +15,7 @@ public class PurchaseController extends AController {
 
     public CheckBox visaCheckBox;
     public CheckBox PayPalCheckBox;
+    public TextField vacationId;
     public TextField text1;
     public TextField text2;
     public TextField text3;
@@ -31,7 +32,7 @@ public class PurchaseController extends AController {
         text3 = new TextField();
         text4 = new TextField();
 
-        this.idVacation = idVacation;
+        //this.idVacation = idVacation;
 
         text1.setOnKeyTyped(event ->{
             int maxCharacters = 4;
@@ -85,11 +86,20 @@ public class PurchaseController extends AController {
         String card;
         String cardNumber;
 
-        if(!checkNumCard())
+        if(!this.checkInt(vacationId.getText() , "Valid vacation id"))
+            return;
+
+        idVacation = Integer.parseInt(vacationId.getText());
+
+        if(!checkNumCard()) {
             this.error("Invalid credit card number");
+            return;
+        }
         cardNumber = text1.getText()+text2.getText()+text3.getText()+text4.getText();
-        if(!checkCard())
+        if(!checkCard()) {
             this.error("Invalid credit card ");
+            return;
+        }
 
         if(visaCheckBox.isSelected())
             card = "Visa" ;

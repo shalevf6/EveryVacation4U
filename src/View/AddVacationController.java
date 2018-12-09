@@ -68,8 +68,9 @@ public class AddVacationController extends AController {
         String ranking = advanced[3];
         int rank=0;
         try{
-            if(ranking != "")
-                rank = Integer.parseInt(ranking);
+            if(ranking != null)
+                if(!ranking.equals(""))
+                    rank = Integer.parseInt(ranking);
         }catch (NumberFormatException e){
             this.error("Rating need to be only numbers");
             return;

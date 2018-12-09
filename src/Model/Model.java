@@ -525,7 +525,7 @@ public class Model {
 
     private Boolean checkVacationId(int id){
 
-        String sql = "SELECT FROM vacation WHERE id = ? " ;
+        String sql = "SELECT id FROM vacation WHERE id = ? " ;
 
         String[] ans = new String[2];
         try (Connection conn = this.connect();

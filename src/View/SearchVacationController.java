@@ -32,7 +32,7 @@ public class SearchVacationController extends AController {
     public TextField roomRent;
     public ChoiceBox rating;
     public ChoiceBox typeVacation;
-    public TextField buy ;
+   // public TextField buy ;
 
     public TableView<Vacation> vacationTable;
 
@@ -140,13 +140,8 @@ public class SearchVacationController extends AController {
 
     public void onSend(){
 
-        if(!checkBuy()) {
-            error("Invalid vacation id");
-            return;
-        }
-
         PurchaseController p = new PurchaseController();
-        p.setId(Integer.parseInt(buy.getText()));
+       //p.setId(Integer.parseInt(buy.getText()));
         p.show();
         //p.setId(Integer.parseInt(buy.getText()));
 
@@ -187,15 +182,5 @@ public class SearchVacationController extends AController {
 
     }
 
-    private boolean checkBuy(){
 
-        String buyText = buy.getText();
-
-        try{
-            Integer.parseInt(buyText);
-        }catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
-    }
 }
