@@ -599,7 +599,6 @@ public class Model {
         }
        return last;
 
-
     }
 
     private String intHandler(HashMap<String,Integer> map , int value , String wordId,  String last ){
