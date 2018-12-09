@@ -33,36 +33,58 @@ public class AddVacationController extends AController {
         stage.close();
     }
 
-    public void onOk(){
-      String dateF = dateFrom.getEditor().getText();
-      String dateT = dateFrom.getEditor().getText();
-      String textPrice =price.getText();
-      String textDes= destination.getText();
-      String textNumOfTick = number_of_tickets.getText();
-      String textBaggage = baggage.getText();
-      String textAirline = airline.getText();
-      String textReturn = return_flight.getText();
-      String textType= (String)type.getSelectionModel().getSelectedItem();
+    public void onOk() {
+        String dateF = dateFrom.getEditor().getText();
+        String dateT = dateFrom.getEditor().getText();
+        String textPrice = price.getText();
+        String textDes = destination.getText();
+        String textNumOfTick = number_of_tickets.getText();
+        String textBaggage = baggage.getText();
+        String textAirline = airline.getText();
+        String textReturn = return_flight.getText();
+        String textType = (String) type.getSelectionModel().getSelectedItem();
 
+        if(dateF == null || dateT == null || textAirline == null || textBaggage == null || textDes == null || textNumOfTick ==null ||
+                textPrice == null || textReturn == null ||textType == null){
+            this.error("You must fill out all fields");
+            return;
+        }
 
+        if (!yesOrNot(textReturn)) {
+            this.error("Return flight field have to write only Yes or No");
+            return;
+        }
 
+        if(dateF.equals("") || dateT.equals("")){
+            error("date must be field");
+            return;
+        }
 
-      if( !yesOrNot(textReturn)){
-          this.error("Return flight field have to write only Yes or No");
-          return;
-      }
-      String[] dateFrom = dateF.split("/");
-      String[] dateTo = dateT.split("/");
-      int fromYear = Integer.parseInt(dateFrom[2]);
-      int fromMonth = Integer.parseInt(dateFrom[1]);
-      int fromDay = Integer.parseInt(dateFrom[0]);
-      int toYear = Integer.parseInt(dateTo[2]);
-      int toMonth = Integer.parseInt(dateTo[1]);
-      int toDay = Integer.parseInt(dateTo[0]);
-      if ((toYear<fromYear) || (toYear==fromYear && toMonth<fromMonth) || (toYear==fromYear && toMonth==fromMonth && toDay<fromDay)) {
-          error("The number of vacation days must be positive");
-          return;
-      }
+        String[] dateFrom = dateF.split("/");
+        String[] dateTo = dateT.split("/");
+        int fromYear = Integer.parseInt(dateFrom[2]);
+        int fromMonth = Integer.parseInt(dateFrom[1]);
+        int fromDay = Integer.parseInt(dateFrom[0]);
+        int toYear = Integer.parseInt(dateTo[2]);
+        int toMonth = Integer.parseInt(dateTo[1]);
+        int toDay = Integer.parseInt(dateTo[0]);
+        if ((toYear < fromYear) || (toYear == fromYear && toMonth < fromMonth) || (toYear == fromYear && toMonth == fromMonth && toDay < fromDay)) {
+            error("The number of vacation days must be positive");
+            return;
+        }
+        if (!checkIfDigit(textNumOfTick) || Integer.parseInt(textNumOfTick) <= 0) {
+            error("num of tickets must be positive digits only");
+            return;
+        }
+        if (!checkIfDigit(textBaggage) || Integer.parseInt(textBaggage) < 0){
+            error("baggage field must be positive digits only");
+            return;
+        }
+        if (!checkIfDigit(textPrice) || Integer.parseInt(textPrice) < 0){
+            error("price must be positive digits only");
+            return;
+        }
+
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate = dateFormat.format(new Date());
         String[] currDate = currentDate.split("/");
@@ -73,15 +95,6 @@ public class AddVacationController extends AController {
             this.error("The vacation date has already passed");
             return;
         }
-
-
-
-      if(dateF == null || dateT == null || textAirline == null || textBaggage == null || textDes == null || textNumOfTick ==null ||
-      textPrice == null || textReturn == null ||textType == null){
-          this.error("You must fill out all fields");
-          return;
-      }
-
       if(!checkInt(textPrice,"price need to be only numbers") || !checkInt(textNumOfTick , "number of tickets need to be only numbers" )||
         !checkInt(textBaggage,textBaggage))
           return;
@@ -116,6 +129,21 @@ public class AddVacationController extends AController {
         AdvancedAddVacation.ans[4] = "";
 
 
+    }
+
+    /**
+     * check whether a string contain only digits
+     * @param s string to check
+     * @return - true if the string contain only digits
+     */
+    private boolean checkIfDigit(String s){
+        if(s==null || s.length()<0)
+            return false;
+        for (Character c:s.toCharArray()){
+            if(!Character.isDigit(c))
+                return false;
+        }
+        return true;
     }
 
     public void onAdvanced(){

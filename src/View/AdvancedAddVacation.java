@@ -37,14 +37,33 @@ public class AdvancedAddVacation extends AController {
 
       if(!yesOrNotOrNull(ans[0]) || !yesOrNotOrNull(ans[1]) || !yesOrNotOrNull(ans[2])) {
           this.error("Only Yes or Not");
-      }else{
+      }
+      else if (ans[3]!=null && !ans[3].equals("")  && (checkIfDigit(ans[3]) || Integer.parseInt(ans[3]) < 1 || Integer.parseInt(ans[3])> 5)){
+             error("rating field must be positive digits only or empty");
+             return;
+      }
+      else{
           Stage stage = (Stage) closeButton.getScene().getWindow();
           stage.close();
       }
-
      }
 
-      public void show(){
+    /**
+     * check whether a string contain only digits
+     * @param s string to check
+     * @return - true if the string contain only digits
+     */
+    private boolean checkIfDigit(String s){
+        if(s==null || s.length()<0)
+            return false;
+        for (Character c:s.toCharArray()){
+            if(!Character.isDigit(c))
+                return false; }
+        return true;
+    }
+
+
+    public void show(){
 
           Stage stage = new Stage();
           try {

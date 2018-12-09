@@ -73,7 +73,7 @@ public class Controller {
 
 
     String[] ans = model.addVacation(dateF,dateT,Price,textDes,numOfTick,
-        textBaggage,textAirline ,textReturn ,textType,purchase , Connecting_flight,
+        textBaggage,textAirline ,textReturn , textType, purchase, Connecting_flight,
                 roomRent , rating , typeVacation);
 
     handleAlert(ans);
