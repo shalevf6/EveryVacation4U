@@ -23,8 +23,17 @@ public class CreateController extends AController {
         !checkLastName(txtfld_last_name.getText())||!checkCity(txtfld_city.getText())){
             return;
         }
-        String ans =AController.controller.create(txtfld_user_name.getText(), txtfld_password.getText(),birthDay,
-                txtfld_first_name.getText(), txtfld_last_name.getText(), txtfld_city.getText());
+
+
+        User u = new User();
+        u.setUserName(txtfld_user_name.getText());
+        u.setPassword(txtfld_password.getText());
+        u.setLastName( txtfld_last_name.getText());
+        u.setFirstName(txtfld_first_name.getText());
+        u.setBirthDate(birthDay);
+        u.setCity( txtfld_city.getText());
+
+        String ans =AController.controller.create(u);
 
         if(ans == "S")
             this.closeWindow();
