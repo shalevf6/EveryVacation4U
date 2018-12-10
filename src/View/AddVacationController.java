@@ -35,7 +35,7 @@ public class AddVacationController extends AController {
 
     public void onOk() {
         String dateF = dateFrom.getEditor().getText();
-        String dateT = dateFrom.getEditor().getText();
+        String dateT = dateTo.getEditor().getText();
         String textPrice = price.getText();
         String textDes = destination.getText();
         String textNumOfTick = number_of_tickets.getText();
