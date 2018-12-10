@@ -74,10 +74,5 @@
       </ChoiceBox>
       <Button fx:id="ok" layoutX="333.0" layoutY="348.0" mnemonicParsing="false" onAction="#onOk" text="Ok" textAlignment="CENTER" />
       <Button fx:id="closeButton" layoutX="210.0" layoutY="348.0" mnemonicParsing="false" onAction="#onBack" text="Back " textAlignment="CENTER" />
-      <TextField fx:id="purchase" alignment="CENTER" layoutX="42.0" layoutY="119.0" prefHeight="30.0" prefWidth="255.0" promptText="Is it possible to purchase some of the tickets?">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </TextField>
    </children>
 </AnchorPane>
