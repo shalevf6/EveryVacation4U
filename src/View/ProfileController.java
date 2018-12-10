@@ -1,6 +1,7 @@
 package View;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -9,24 +10,55 @@ import javafx.stage.Stage;
 public class ProfileController extends AController {
 
     public Button close ;
-    public Text userName = new Text();
-    public Text birth = new Text();
-    public Text city = new Text();
-    public Text firstName = new Text();
-    public Text lastName = new Text();
+    public Label userName ;
+    public Label birth ;
+    public Label city;
+    public Label firstName;
+    public Label lastName ;
+    private User u;
+
+    public ProfileController(){
+
+        userName = new Label();
+        birth = new Label();
+        city= new Label();
+        firstName = new Label();
+        lastName = new Label();
+
+
+    }
 
 
 
     public void show(){
 
+        this.u = controller.profile();
+
+
+        /*
+        userName.textProperty().bind(u.userNameProperty());
+        birth.textProperty().bind(u.birthDateProperty());
+        city.textProperty().bind(u.cityProperty());
+        firstName.textProperty().bind(u.firstNameProperty());
+        lastName.textProperty().bind(u.lastNameProperty());
+
+        userName.setText("a");
+        birth.setText("s");
+        city.setText("d");
+        firstName.setText("r");
+        lastName.setText("t");
+        */
         this.createNewWindow("Profile" , "/fxml/profile.fxml" , 600 , 400);
 
-        User u = controller.profile();
-        userName.setText(u.getUserName());
-        birth.setText(u.getBirthDate());
-        city.setText(u.getCity());
-        firstName.setText(u.getFirstName());
-        lastName.setText(u.getLastName());
+
+        userName.setText("a");
+        birth.setText("s");
+        city.setText("d");
+        firstName.setText("r");
+        lastName.setText("t");
+
+
+
 
     }
 
