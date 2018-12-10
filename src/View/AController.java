@@ -162,6 +162,7 @@ public abstract class AController {
 
     protected void createNewWindow(String title, String fxmlPath  , int w , int h) {
        this.stage= controller.createNewWindow(title , fxmlPath , w , h);
+
     }
 
 }

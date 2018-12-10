@@ -35,10 +35,6 @@ public class MenuController extends AController {
     }
 
 
-    public void onExit(WindowEvent event){
-        onLogout();
-
-    }
     public void onRead() {
         String title = "Search A User Form";
         String fxmlPath = "/fxml/read.fxml";
@@ -59,7 +55,6 @@ public class MenuController extends AController {
         if(ans == 1) {
             Stage stage = (Stage) logout_BTN.getScene().getWindow();
             stage.close();
-
         }
 
     }
@@ -73,9 +68,8 @@ public class MenuController extends AController {
     }
 
     public void onProfile(){
-        String title = "Profile";
-        String fxmlPath = "/fxml/profile.fxml";
-        createNewWindow(title, fxmlPath , 600 , 400);
+       ProfileController p = new ProfileController();
+       p.show();
     }
 
 

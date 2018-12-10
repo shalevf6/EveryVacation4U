@@ -6,6 +6,7 @@ import View.View;
 import Model.Model;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import View.User;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -23,8 +24,8 @@ public class Controller {
         return view.createNewWindow(title, fxmlPath  ,w ,  h);
     }
 
-    public String create(String userName, String password, String birthDate, String firstName, String lastName, String city){
-        String[] ans = model.create(userName,password,birthDate,firstName,lastName,city) ;
+    public String create(User u){
+        String[] ans = model.create(u) ;
         if(ans[0] == "S"){
             handleAlert(ans);
             return ans[0];
@@ -48,6 +49,20 @@ public class Controller {
         if (fieldToChange.equals("City"))
             field = "city";
         handleAlert(model.update(userName, field,newInput));
+
+    }
+
+    public User profile(){
+
+        User u = model.getUser();
+        String[] ans = new String[2];
+        if(u== null){
+            ans[0] = "F";
+            ans[1] = "Fail to find user information " ;
+            handleAlert(ans);
+            return null;
+        }
+        return u;
 
     }
 

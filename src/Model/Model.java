@@ -1,5 +1,6 @@
 package Model;
 
+import View.User;
 import View.Vacation;
 
 import java.sql.*;
@@ -19,10 +20,10 @@ public class Model {
         return conn;
     }
 
-    public String[] create(String userName, String password, String birthDate, String FirstName, String LastName, String city){
+    public String[] create(User u){
 
         String[] ans = new String[2];
-        String userSearch = this.read(userName)[1];
+        String userSearch = this.read(u.getUserName())[1];
 
         if(!userSearch.equals("This user name doesn't exist in the database!")) {
             ans[0] = "F";
@@ -30,17 +31,17 @@ public class Model {
             return ans;
         }
 
-        String sql = "INSERT INTO users(userName, password, birthDate,FirstName, LastName, city) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO users(userName, password, birthDate,firstName, lastName, city) VALUES(?,?,?,?,?,?)";
 
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, userName);
-            pstmt.setString(2, password);
-            pstmt.setString(3, birthDate);
-            pstmt.setString(4, FirstName);
-            pstmt.setString(5, LastName);
-            pstmt.setString(6, city);
+            pstmt.setString(1, u.getUserName());
+            pstmt.setString(2, u.getPassword());
+            pstmt.setString(3, u.getBirthDate());
+            pstmt.setString(4, u.getFirstName());
+            pstmt.setString(5, u.getLastName());
+            pstmt.setString(6, u.getCity());
 
             pstmt.executeUpdate();
 
@@ -238,6 +239,7 @@ public class Model {
         String sql = "INSERT INTO vacation(id,price,airline,date_from,date_to,number_of_tickets,destination,return_flight,type_of_tickets," +
                 "baggage,purchase_tickets,connecting_flight,roomRent,rating,Type_of_vacation) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         int id = returnMaxVacationId();
+        v.setId(id);
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             conn.setAutoCommit(false);
@@ -415,6 +417,39 @@ public class Model {
             return ans;
 
         }
+
+    }
+
+    public User getUser(){
+        String userName = getCurUser();
+        if(userName == null || userName.equals(""))
+            return null;
+        String sql = "SELECT userName, birthDate,firstName, lastName,city "
+                + "FROM users WHERE userName = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, userName);
+            ResultSet rs=pstmt.executeQuery();
+            if(!rs.next()){
+                return null;
+            }
+
+            User u = new User();
+            u.setUserName(rs.getString("userName"));
+            u.setLastName( rs.getString("lastName"));
+            u.setFirstName( rs.getString("firstName"));
+            u.setBirthDate(rs.getString("birthDate"));
+            u.setCity( rs.getString("city"));
+
+            return u;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
 
     }
     
@@ -688,7 +723,7 @@ public class Model {
             return userName;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return null;
+            return "";
         }
 
 
