@@ -37,8 +37,9 @@ public class AdvancedAddVacation extends AController {
 
       if(!yesOrNotOrNull(ans[0]) || !yesOrNotOrNull(ans[1]) || !yesOrNotOrNull(ans[2])) {
           this.error("Only Yes or Not");
+          return;
       }
-      else if (ans[3]!=null && !ans[3].equals("")  && (checkIfDigit(ans[3]) || Integer.parseInt(ans[3]) < 1 || Integer.parseInt(ans[3])> 5)){
+      else if (ans[3]!=null && !ans[3].equals("")  && (!checkIfDigit(ans[3]) || Integer.parseInt(ans[3]) < 1 || Integer.parseInt(ans[3])> 5)){
              error("rating field must be positive digits only or empty");
              return;
       }

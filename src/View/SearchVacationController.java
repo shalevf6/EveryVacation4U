@@ -83,7 +83,7 @@ public class SearchVacationController extends AController {
 
     public void onSearch(){
         String dateF = dateFrom.getEditor().getText();
-        String dateT = dateFrom.getEditor().getText();
+        String dateT = dateTo.getEditor().getText();
         String textPrice =price.getText();
         String textDes= destination.getText();
         String textNumOfTick = number_of_tickets.getText();
@@ -107,8 +107,8 @@ public class SearchVacationController extends AController {
             this.error("Only Yes or Not");
         }
 
-        if(!checkIntOrNull(textPrice,"price need to be only numbers") || !checkIntOrNull(textNumOfTick , "number of tickets need to be only numbers" )||
-                !checkIntOrNull(textBaggage,textBaggage) || !checkIntOrNull(rate ,"rating need to be only numbers") )
+        if(!checkIntOrNull(textPrice,"price need to be only numbers")  || !checkIntOrNull(textNumOfTick , "number of tickets need to be only numbers" )||
+                !checkIntOrNull(textBaggage,"Baggage need to be only numbers") || !checkIntOrNull(rate ,"rating need to be only numbers") )
             return;
 
         int numPrice = 0;
@@ -147,6 +147,20 @@ public class SearchVacationController extends AController {
 
     }
 
+    /**
+     * check whether a string contain only digits
+     * @param s string to check
+     * @return - true if the string contain only digits
+     */
+    private boolean checkIfDigit(String s){
+        if(s==null || s.length()<0)
+            return false;
+        for (Character c:s.toCharArray()){
+            if(!Character.isDigit(c))
+                return false;
+        }
+        return true;
+    }
 
     private boolean yesOrNotOrNull(String word){
 
