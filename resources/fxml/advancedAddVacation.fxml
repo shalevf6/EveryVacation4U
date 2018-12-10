@@ -21,7 +21,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <TextField fx:id="purchase" alignment="CENTER" layoutX="38.0" layoutY="119.0" prefHeight="30.0" prefWidth="255.0" promptText="Is it possible to purchase some of the tickets?">
+      <TextField fx:id="purchase1" alignment="CENTER" layoutX="38.0" layoutY="119.0" prefHeight="30.0" prefWidth="255.0" promptText="Is it possible to purchase some of the tickets?">
          <font>
             <Font size="10.0" />
          </font>

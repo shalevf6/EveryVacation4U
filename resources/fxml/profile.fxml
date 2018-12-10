@@ -1,37 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@../css/profile.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ProfileController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ProfileController">
    <children>
       <Button fx:id="close" layoutX="275.0" layoutY="340.0" mnemonicParsing="false" onAction="#onBack" text="Back" />
-      <Text layoutX="236.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="160.0" AnchorPane.bottomAnchor="287.482421875" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="204.0" AnchorPane.topAnchor="88.576171875">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="80.0" prefHeight="17.0" prefWidth="192.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="130.0" prefHeight="17.0" prefWidth="192.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="230.0" prefHeight="17.0" prefWidth="192.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="180.0" prefHeight="17.0" prefWidth="192.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="280.0" prefHeight="17.0" prefWidth="192.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Text layoutX="96.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Name" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="227.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="160.0">
+      <Text layoutX="96.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Day" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="227.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="160.0">
+      <Text layoutX="96.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="227.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="160.0">
+      <Text layoutX="96.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="220.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="160.0">
+      <Text layoutX="96.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City" textAlignment="CENTER">
          <font>
             <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="246.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" textAlignment="CENTER" wrappingWidth="107.14550638198853">
+         <font>
+            <Font size="24.0" />
          </font>
       </Text>
    </children>
+   <stylesheets>
+      <URL value="@../css/profile.css" />
+      <URL value="@../css/profile.css" />
+   </stylesheets>
+   <styleClass>
+      <String fx:value="bodybg" />
+      <String fx:value="text" />
+   </styleClass>
 </AnchorPane>
