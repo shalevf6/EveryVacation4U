@@ -22,8 +22,7 @@ public class UpdateController extends AController {
             alert.show();
             return;
         }
-        if(!checkUserName(txtfld_user_name.getText()))
-            return;
+
         if(toCheck.equals("Password"))
             if(!checkPassword(txtfld_new_value.getText()))
                 return;
@@ -39,7 +38,7 @@ public class UpdateController extends AController {
         if(toCheck.equals("City"))
             if(!checkCity(txtfld_new_value.getText()))
                 return;
-        AController.controller.update(txtfld_user_name.getText(),choiceBox.getValue(),txtfld_new_value.getText());
+        AController.controller.update(choiceBox.getValue(),txtfld_new_value.getText());
     }
 
     public void closeWindow(ActionEvent actionEvent) {
