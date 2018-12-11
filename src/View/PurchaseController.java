@@ -86,7 +86,7 @@ public class PurchaseController extends AController {
         String card;
         String cardNumber;
 
-        if(!this.checkInt(vacationId.getText() , "Valid vacation id"))
+        if(!this.checkInt(vacationId.getText() , "IValid vacation id"))
             return;
 
         idVacation = Integer.parseInt(vacationId.getText());
