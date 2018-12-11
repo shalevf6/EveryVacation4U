@@ -58,10 +58,15 @@ public class Model {
 
     }
 
-    public String[] update(String userName ,String fieldToChange, String newInput) {
+    public String[] update(String fieldToChange, String newInput) {
 
         String[] ans = new String[2];
-
+        String userName = getCurUser();
+        if(userName.equals("")){
+            ans[0] = "F";
+            ans[1] = "Fail to find user name";
+            return ans;
+        }
         String userSearch = this.read(userName)[1];
 
         if(userSearch.equals("This user name doesn't exist in the database!")) {
@@ -202,17 +207,14 @@ public class Model {
 
     }
 
-    public String[] delete(String userName) {
+    public String[] delete(String userName , String password) {
 
-        String[] ans = new String[2];
-
-        String userSearch = this.read(userName)[1];
-
-        if(userSearch.equals("This user name doesn't exist in the database!")) {
-            ans[0] = "F";
-            ans[1] = "user name not exists";
+        String[] ans = confirmUser(userName , password);
+        if(ans[0] == "F"){
             return ans;
         }
+
+
         String sql = "DELETE FROM users WHERE userName = ?";
 
         try (Connection conn = this.connect();
@@ -748,5 +750,44 @@ public class Model {
 
 
     }
+
+    private String[] confirmUser(String userName , String password){
+
+
+        String[] ans = checkUserNameUsersTable(userName);
+        if(ans[0].equals("F"))
+            return ans;
+        ans = checkUserNameLogInTable(userName);
+        if(ans[0].equals("S")){
+            ans[0] = "F";
+            ans[1] = "User need to be log out for delete";
+            return ans;
+        }
+
+        String sql = "SELECT userName, password FROM users WHERE userName = ? and password = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ) {
+            // set the corresponding param
+            pstmt.setString(1, userName);
+            pstmt.setString(2, password);
+            ResultSet rs=pstmt.executeQuery();
+            if(!rs.next()){
+                ans[0]="F";
+                ans[1]="Wrong password";
+                return ans;
+            }
+
+            ans[0] = "S";
+            ans[1] = "Confirm User!";
+            return ans;
+        } catch (SQLException e) {
+            ans[0] = "F";
+            ans[1] =  "fail to search the user";
+            return ans;
+        }
+    }
+
 
 }

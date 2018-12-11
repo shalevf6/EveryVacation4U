@@ -19,16 +19,16 @@ public class View {
         createNewWindow(title, fxmlPath , 600 , 400);
     }
 
+    public void onDelete(){
+        String title = "Delete A User ";
+        String fxmlPath = "/fxml/delete.fxml";
+        createNewWindow(title, fxmlPath , 600 , 400);
+    }
+
     public void onRead() {
         String title = "Search A User Form";
         String fxmlPath = "/fxml/read.fxml";
         createNewWindow(title, fxmlPath , 600 , 400);
-    }
-
-    public void onUpdate() {
-        String title = "Update Details Form";
-        String fxmlPath = "/fxml/update.fxml";
-        createNewWindow(title, fxmlPath , 600 ,400);
     }
 
    public void onMenu(){

@@ -36,7 +36,7 @@ public class Controller {
         }
     }
 
-    public void update(String userName, String fieldToChange, String newInput) {
+    public void update( String fieldToChange, String newInput) {
         String field = "";
         if (fieldToChange.equals("Password"))
             field = "password";
@@ -48,7 +48,7 @@ public class Controller {
             field = "lastName";
         if (fieldToChange.equals("City"))
             field = "city";
-        handleAlert(model.update(userName, field,newInput));
+        handleAlert(model.update(field,newInput));
 
     }
 
@@ -70,8 +70,8 @@ public class Controller {
         handleAlert(model.read(userName));
     }
 
-    public void delete(String userName) {
-        handleAlert(model.delete(userName));
+    public void delete(String userName , String password) {
+        handleAlert(model.delete(userName , password));
     }
 
     public String login(String userName , String password) {

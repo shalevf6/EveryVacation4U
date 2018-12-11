@@ -69,5 +69,11 @@ public class ProfileController extends AController {
 
     }
 
+    public void onUpdate(){
+        String title = "Update Details Form";
+        String fxmlPath = "/fxml/update.fxml";
+        createNewWindow(title, fxmlPath , 600 ,400);
+    }
+
 
 }
