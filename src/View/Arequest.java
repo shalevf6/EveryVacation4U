@@ -3,7 +3,7 @@ package View;
 public class Arequest {
 
     protected RequestStatus requestStatus;
-    protected String sellerID,buyerID;
+    protected String sellerID,buyerID,type;
 
     public enum RequestStatus
     {

@@ -11,6 +11,7 @@ public class purchaseRequest extends Arequest {
         this.buyerID=buyerId;
         requestStatus = RequestStatus.Waiting;
         isPaid = false;
+        type = "purchase";
     }
 
     public boolean isPaid() {

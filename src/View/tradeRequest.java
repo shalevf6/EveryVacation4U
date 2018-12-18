@@ -10,6 +10,7 @@ public class tradeRequest extends Arequest {
         this.buyerID = curUser;
         this.sellerID = idSeller;
         requestStatus = RequestStatus.Waiting;
+        type = "trade";
     }
 
     public int getMyVacID() {
