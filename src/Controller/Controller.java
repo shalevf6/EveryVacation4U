@@ -98,12 +98,9 @@ public class Controller {
     }
 
 
-    public List<Vacation> searchVacation(String dateF, String dateT, int price, String textDes, int numOfTick,
-                                    int textBaggage, String textAirline , String textReturn , String textType, String purchase , String Connecting_flight,
-                                    String roomRent , int rating , String typeVacation){
+    public List<Vacation> searchVacation(Vacation v){
 
-        List<Vacation> list= model.searchVacation(dateF, dateT,price,textDes,numOfTick, textBaggage, textAirline ,textReturn ,textType, purchase , Connecting_flight,
-                 roomRent ,  rating ,typeVacation) ;
+        List<Vacation> list= model.searchVacation(v) ;
 
 
         return list;
