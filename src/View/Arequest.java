@@ -1,7 +1,9 @@
 package View;
 
 public class Arequest {
-    RequestStatus requestStatus;
+
+    protected RequestStatus requestStatus;
+    protected String sellerID,buyerID;
 
     public enum RequestStatus
     {
@@ -17,5 +19,15 @@ public class Arequest {
             requestStatus = RequestStatus.Approved;
     }
 
+    public RequestStatus getRequestStatus() {
+        return requestStatus;
+    }
 
+    public String getSellerID() {
+        return sellerID;
+    }
+
+    public String getBuyerID() {
+        return buyerID;
+    }
 }
