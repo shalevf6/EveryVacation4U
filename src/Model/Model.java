@@ -2,7 +2,8 @@ package Model;
 
 import View.User;
 import View.Vacation;
-
+import View.purchaseRequest;
+import View.tradeRequest;
 import java.sql.*;
 import java.util.*;
 
@@ -357,6 +358,7 @@ public class Model {
         }
         String curUser = getCurUser();
         String idSeller = getIdSeller(id_Vacation);
+        purchaseRequest pr = new purchaseRequest(id_Vacation, idSeller, curUser);
 
         if(curUser.equals(idSeller)){
             ans[0] = "F";
@@ -368,53 +370,50 @@ public class Model {
             ans[1] = " You need to log in to purchase a vacation" ;
             return ans;
         }
-        if(!deleteVacation(id_Vacation)){
-            ans[0] = "F";
-            ans[1] = "Fail to delete vacation" ;
-            return ans;
-        }
+//        if(!deleteVacation(id_Vacation)){
+//            ans[0] = "F";
+//            ans[1] = "Fail to delete vacation" ;
+//            return ans;
+//        }
+//
+//
+//
+//        if(!deleteUserVacation(id_Vacation , curUser)){
+//            ans[0] = "F";
+//            ans[1] = "Fail to delete user vacation" ;
+//            return ans;
+//        }
 
+        String sql =  "INSERT INTO userPayment(idPurchaseReq,idVacation,idBuyer,idSeller) VALUES(?,?,?,?)";
 
-
-        if(!deleteUserVacation(id_Vacation , curUser)){
-            ans[0] = "F";
-            ans[1] = "Fail to delete user vacation" ;
-            return ans;
-        }
-
-        String sql =  "INSERT INTO userPayment(idPayment,idVacation,idBuyer,idSeller,card,cardNumber) VALUES(?,?,?,?,?,?)";
-
-        int idPayment = returnMaxPaymentId();
+        int idPurchaseReq = returnMaxPaymentId();
 
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, idPayment);
+            pstmt.setInt(1, idPurchaseReq);
             pstmt.setInt(2, id_Vacation);
             pstmt.setString(3, curUser);
             pstmt.setString(4, idSeller);
-           // pstmt.setString(5, card);
-            //pstmt.setString(6,cardNumber);
             pstmt.executeUpdate();
 
             ans[0] = "S";
-            ans[1] = "Vacation payment success";
+            ans[1] = "Vacation purchaseRequest created successfully";
             return ans;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             ans[0] = "F";
-            ans[1] =  " Vacation payment fail ";
+            ans[1] = "Vacation purchaseRequest create failed";
             return ans;
-
         }
-
     }
 
     public String[] tradeVacation(int id_Vacation1 , int id_Vacation2){
 
         String[] ans = new String[2];
-        String user1= getCurUser();
-
+        String user1 = getCurUser();
+        String idSeller = getIdSeller(id_Vacation2);
+        tradeRequest tradeReq = new tradeRequest(id_Vacation1, id_Vacation2, user1, idSeller);
         /*
 
         need do add check if cur user not found
