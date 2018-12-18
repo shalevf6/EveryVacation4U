@@ -2,15 +2,16 @@ package View;
 
 public class tradeRequest extends Arequest {
 
-    private int myVacID,wantedVacID;
+    private int wantedVacID;
 
-    public tradeRequest(int myVac, int wantedVac, String curUser, String idSeller){
+    public tradeRequest(int id,int myVac, int wantedVac, String curUser, String idSeller){
         this.myVacID = myVac;
         this.wantedVacID = wantedVac;
         this.buyerID = curUser;
         this.sellerID = idSeller;
         requestStatus = RequestStatus.Waiting;
         type = "trade";
+        this.myId= id;
     }
 
     public int getMyVacID() {

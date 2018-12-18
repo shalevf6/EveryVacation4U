@@ -348,7 +348,7 @@ public class Model {
 
     }
 
-    public String[] buyVacation(int id_Vacation ){
+    public String[] buyVacation(int id_Vacation){
 
         String[] ans = new String[2];
         if(!checkVacationId( id_Vacation)){
@@ -358,7 +358,8 @@ public class Model {
         }
         String curUser = getCurUser();
         String idSeller = getIdSeller(id_Vacation);
-        purchaseRequest pr = new purchaseRequest(id_Vacation, idSeller, curUser);
+        int idPurchaseReq = returnMaxPaymentId();
+        purchaseRequest pr = new purchaseRequest(idPurchaseReq,id_Vacation, idSeller, curUser);
 
         if(curUser.equals(idSeller)){
             ans[0] = "F";
@@ -370,23 +371,11 @@ public class Model {
             ans[1] = " You need to log in to purchase a vacation" ;
             return ans;
         }
-//        if(!deleteVacation(id_Vacation)){
-//            ans[0] = "F";
-//            ans[1] = "Fail to delete vacation" ;
-//            return ans;
-//        }
-//
-//
-//
-//        if(!deleteUserVacation(id_Vacation , curUser)){
-//            ans[0] = "F";
-//            ans[1] = "Fail to delete user vacation" ;
-//            return ans;
-//        }
+
 
         String sql =  "INSERT INTO userPayment(idPurchaseReq,idVacation,idBuyer,idSeller) VALUES(?,?,?,?)";
 
-        int idPurchaseReq = returnMaxPaymentId();
+
 
 
         try (Connection conn = this.connect();
@@ -413,7 +402,8 @@ public class Model {
         String[] ans = new String[2];
         String user1 = getCurUser();
         String idSeller = getIdSeller(id_Vacation2);
-        tradeRequest tradeReq = new tradeRequest(id_Vacation1, id_Vacation2, user1, idSeller);
+        int idTrade = returnMaxTradeId() ;
+        tradeRequest tradeReq = new tradeRequest( idTrade,id_Vacation1, id_Vacation2, user1, idSeller);
         /*
 
         need do add check if cur user not found
@@ -438,7 +428,7 @@ public class Model {
         }
 
         String sql =  "INSERT INTO userTrade(idTrade,idVacation1,idVacation2,id_User1,id_User2) VALUES(?,?,?,?,?)";
-        int idTrade = returnMaxTradeId() ;
+
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, idTrade);

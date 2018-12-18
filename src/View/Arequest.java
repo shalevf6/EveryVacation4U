@@ -1,9 +1,13 @@
 package View;
 
-public class Arequest {
+abstract public class Arequest {
 
     protected RequestStatus requestStatus;
     protected String sellerID,buyerID,type;
+    protected int myVacID , myId;
+
+
+   abstract public int getWantedVacID();
 
     public enum RequestStatus
     {
@@ -29,5 +33,9 @@ public class Arequest {
 
     public String getBuyerID() {
         return buyerID;
+    }
+
+    public int getMyVacID() {
+        return myVacID;
     }
 }
