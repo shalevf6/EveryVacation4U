@@ -1,64 +1,47 @@
 package View;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ProfileController extends AController {
 
-    public Button close ;
-    public Label userName ;
+public class ProfileController extends AController implements Initializable {
+
+
+
+    @FXML
+    public Button close  ;
+
+    public  Label userName;
+    @FXML
     public Label birth ;
-    public Label city;
-    public Label firstName;
-    public Label lastName ;
+    @FXML
+    public Label city ;
+    @FXML
+    public Label firstName ;
+    @FXML
+    public Label lastName  ;
+
     private User u;
 
-    public ProfileController(){
 
-        userName = new Label();
-        birth = new Label();
-        city= new Label();
-        firstName = new Label();
-        lastName = new Label();
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
-
-    }
-
-
-
-    public void show(){
-
-        this.u = controller.profile();
-
-
-        /*
-        userName.textProperty().bind(u.userNameProperty());
-        birth.textProperty().bind(u.birthDateProperty());
-        city.textProperty().bind(u.cityProperty());
-        firstName.textProperty().bind(u.firstNameProperty());
-        lastName.textProperty().bind(u.lastNameProperty());
-
-        userName.setText("a");
-        birth.setText("s");
-        city.setText("d");
-        firstName.setText("r");
-        lastName.setText("t");
-        */
-        this.createNewWindow("Profile" , "/fxml/profile.fxml" , 600 , 400);
-
-
-        userName.setText("a");
-        birth.setText("s");
-        city.setText("d");
-        firstName.setText("r");
-        lastName.setText("t");
-
-
-
+        bind();
 
     }
 
@@ -73,6 +56,16 @@ public class ProfileController extends AController {
         String title = "Update Details Form";
         String fxmlPath = "/fxml/update.fxml";
         createNewWindow(title, fxmlPath , 600 ,400);
+
+    }
+
+    private void bind(){
+        this.u =  controller.profile();
+        userName.textProperty().bind(u.userNameProperty());
+        birth.textProperty().bind(u.birthDateProperty());
+        city.textProperty().bind(u.cityProperty());
+        firstName.textProperty().bind(u.firstNameProperty());
+        lastName.textProperty().bind(u.lastNameProperty());
     }
 
 

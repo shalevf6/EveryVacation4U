@@ -147,6 +147,15 @@ public class SearchVacationController extends AController {
 
     }
 
+    public void onTrade(){
+
+        String title = "Trade Vacation";
+        String path = "/fxml/tradeVacation.fxml";
+        createNewWindow(title , path ,400 , 200);
+
+
+    }
+
     /**
      * check whether a string contain only digits
      * @param s string to check

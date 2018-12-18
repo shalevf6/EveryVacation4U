@@ -93,10 +93,17 @@ public class Main extends Application {
         String sqlPayment = "CREATE TABLE IF NOT EXISTS userPayment (\n"
                 + "	idPayment integer PRIMARY KEY,\n"
                 + "	idVacation integer NOT NULL,\n"
-                + "	idBuyer integer NOT NULL,\n"
-                + "	idSeller integer NOT NULL,\n"
+                + "	idBuyer text NOT NULL,\n"
+                + "	idSeller text NOT NULL,\n"
                 + "	card text NOT NULL,\n"
                 + "	cardNumber text NOT NULL \n"
+                + ");";
+        String sqlTrade = "CREATE TABLE IF NOT EXISTS userTrade (\n"
+                + "	idTrade integer PRIMARY KEY,\n"
+                + "	idVacation1 integer NOT NULL,\n"
+                + "	idVacation2 integer NOT NULL,\n"
+                + "	id_User1 text NOT NULL,\n"
+                + "	id_User2 text NOT NULL\n"
                 + ");";
 
         //Connecting flight
@@ -112,6 +119,7 @@ public class Main extends Application {
             stmt.execute(sqlVacation);
             stmt.execute(sqlUserVacation);
             stmt.execute(sqlPayment);
+            stmt.execute(sqlTrade);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

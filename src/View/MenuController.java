@@ -68,8 +68,9 @@ public class MenuController extends AController {
     }
 
     public void onProfile(){
-       ProfileController p = new ProfileController();
-       p.show();
+        this.createNewWindow("Profile" , "/fxml/profile.fxml" , 600 , 400);
+       //ProfileController p = new ProfileController();
+       //p.show();
     }
 
 

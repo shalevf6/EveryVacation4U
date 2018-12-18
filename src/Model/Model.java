@@ -422,6 +422,60 @@ public class Model {
 
     }
 
+    public String[] tradeVacation(int id_Vacation1 , int id_Vacation2){
+
+        String[] ans = new String[2];
+        String user1= getCurUser();
+
+        /*
+
+        need do add check if cur user not found
+
+         */
+        if(getIdSeller(id_Vacation1).equals(user1)){
+            ans[0] = "F";
+            ans[1] = "User don't own this vacation ";
+            return ans;
+        }
+        if(!checkVacationId(id_Vacation1) || !checkVacationId(id_Vacation2) ){
+            ans[0] = "F";
+            ans[1] = "Invalid id vacation";
+            return ans;
+        }
+        String user2 = getIdSeller(id_Vacation2) ;
+        if(user1.equals( user2)){
+            ans[0] = "F";
+            ans[1] = "User can't trade vacation with himself";
+            return ans;
+
+        }
+
+        String sql =  "INSERT INTO userTrade(idTrade,idVacation1,idVacation2,id_User1,id_User2) VALUES(?,?,?,?,?)";
+        int idTrade = returnMaxTradeId() ;
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idTrade);
+            pstmt.setInt(2,id_Vacation1);
+            pstmt.setInt(3, id_Vacation2);
+            pstmt.setString(4, user1);
+            pstmt.setString(5, user2);
+
+            pstmt.executeUpdate();
+
+            ans[0] = "S";
+            ans[1] = "Vacation trade success";
+            return ans;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            ans[0] = "F";
+            ans[1] =  " Vacation trade fail ";
+            return ans;
+
+        }
+
+
+    }
+
     public User getUser(){
         String userName = getCurUser();
         if(userName == null || userName.equals(""))
@@ -486,6 +540,25 @@ public class Model {
                 return 1;
             }
             ans = rs.getInt("MAX(idPayment)");
+            ans++;
+            return ans;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return ans;
+        }
+    }
+
+    private int returnMaxTradeId(){
+        int ans = 1;
+        String sql = "SELECT MAX(idTrade) FROM userTrade";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+            if (!rs.next()) {
+                return 1;
+            }
+            ans = rs.getInt("MAX(idTrade)");
             ans++;
             return ans;
 
