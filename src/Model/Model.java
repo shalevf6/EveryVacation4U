@@ -359,7 +359,7 @@ public class Model {
 
     }
 
-    public String[] buyVacation(int id_Vacation , String card , String cardNumber){
+    public String[] buyVacation(int id_Vacation ){
 
         String[] ans = new String[2];
         if(!checkVacationId( id_Vacation)){
@@ -405,8 +405,8 @@ public class Model {
             pstmt.setInt(2, id_Vacation);
             pstmt.setString(3, curUser);
             pstmt.setString(4, idSeller);
-            pstmt.setString(5, card);
-            pstmt.setString(6,cardNumber);
+           // pstmt.setString(5, card);
+            //pstmt.setString(6,cardNumber);
             pstmt.executeUpdate();
 
             ans[0] = "S";
