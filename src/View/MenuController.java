@@ -69,9 +69,25 @@ public class MenuController extends AController {
 
     public void onProfile(){
         this.createNewWindow("Profile" , "/fxml/profile.fxml" , 600 , 400);
-       //ProfileController p = new ProfileController();
-       //p.show();
+
     }
+
+    public void onSend(){
+
+        PurchaseController p = new PurchaseController();
+        p.show();
+
+    }
+
+    public void onTrade(){
+
+        String title = "Trade Vacation";
+        String path = "/fxml/tradeVacation.fxml";
+        createNewWindow(title , path ,400 , 200);
+
+
+    }
+
 
 
 }

@@ -109,10 +109,10 @@ public class Controller {
         return list;
     }
 
-    public String buyVacation(int id_Vacation , String card , String cardNumber){
+    public String buyVacation(int id_Vacation ){
 
 
-        String[] ans = model.buyVacation(id_Vacation,card,cardNumber);
+        String[] ans = model.buyVacation(id_Vacation);
         handleAlert(ans);
         return ans[0];
 
