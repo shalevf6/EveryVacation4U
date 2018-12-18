@@ -281,30 +281,18 @@ public class Model {
 
     }
 
-    public List<Vacation> searchVacation(String dateF,String dateT,int price,String textDes,int numOfTick,
-                                   int textBaggage, String textAirline ,String textReturn ,String textType,String purchase , String Connecting_flight,
-                                   String rent , int rate , String typeVacation){
+    public List<Vacation> searchVacation(Vacation searchV){
+
         HashMap<String , String> stringMap = new HashMap<>();
         HashMap<String , Integer> intMap = new HashMap<>();
         List<Vacation> vacationList = new ArrayList<>();
-        String last = stringMap (stringMap , dateF,dateT,textDes,textAirline,textReturn,
-                textType,purchase,Connecting_flight,rent,typeVacation);
-        last = intMap(intMap , last , price , numOfTick ,  textBaggage , rate);
+        stringMap (stringMap , searchV);
+        intMap(intMap , searchV);
         if(intMap.size() == 0 && stringMap.size() == 0)
             return vacationList;
 
-        /*if(intMap.size() > 0){
-            int tmpValue =intMap.remove(last);
-            last=last.substring(0,last.length()-5);
-            intMap.put(last,tmpValue);
-        }else{
-            String tmpValue =stringMap.remove(last);
-            last=last.substring(0,last.length()-5);
-            stringMap.put(last,tmpValue);
-        }
-*/
         String sql = "SELECT * FROM vacation WHERE ";
-        //String sqltmp = "SELECT * FROM vacation";
+
 
         for(Map.Entry m:stringMap.entrySet()){
             sql = sql+(m.getKey());
@@ -661,75 +649,56 @@ public class Model {
 
     }
 
-    private String stringMap(HashMap<String,String> map ,String dateF,String dateT,String textDes, String textAirline, String textReturn,
-                                              String textType,String purchase, String Connecting_flight, String rent, String typeVacation){
+    private void stringMap(HashMap<String,String> map ,Vacation v){
 
-           /*
-         + "	price integer NOT NULL,\n"
-                + "	airline text NOT NULL,\n"
-                + "	date_from text NOT NULL,\n"
-                + "	date_to text NOT NULL,\n"
-                + "	number_of_tickets integer NOT NULL,\n"
-                + "	destination text NOT NULL,\n"
-                + "	return_flight text NOT NULL,\n"
-                + "	type_of_tickets text NOT NULL,\n"
-                + "	baggage integer NOT NULL,\n"
-                + "	purchase_tickets text ,\n"
-                + "	connecting_flight text ,\n"
-                + "	roomRent text ,\n"
-                + "	rating integer ,\n"
-                + "	Type_of_vacation text \n"
-                + ");";
-         */
-        String last = "";
-        last =stringHandler( map , dateF , "date_from"  ,last);
-        last =stringHandler( map ,  dateT , "date_to" ,last);
-        last =stringHandler( map ,  textDes , "destination" ,last);
-        last =stringHandler( map ,  textAirline , "airline"  ,last);
-        last =stringHandler( map , textReturn , "return_flight" ,last);
-        last =stringHandler( map , textType , "type_of_tickets"  ,last);
-        last =stringHandler( map , purchase , "purchase"  ,last);
-        last =stringHandler( map , Connecting_flight , "connecting_flight"  ,last);
-        last =stringHandler( map , rent , "roomRent"  ,last);
-        last =stringHandler( map , typeVacation , "Type_of_vacation"  ,last);
 
-        return last;
+
+        stringHandler( map ,v.getDateF() , "date_from" );
+        stringHandler( map , v.getDateT() , "date_to" );
+        stringHandler( map ,v.getDestination()  , "destination" );
+        stringHandler( map , v.getAirLine() , "airline"  );
+       stringHandler( map , v.getReturnFlight(), "return_flight" );
+        stringHandler( map ,v.getTicktType(), "type_of_tickets"  );
+        stringHandler( map , v.getPurchase(), "purchase" );
+       stringHandler( map ,v.getConnectingFlight() , "connecting_flight"  );
+       stringHandler( map , v.getRoomRent() , "roomRent"  );
+       stringHandler( map ,v.getVacationType() , "Type_of_vacation"  );
+
+
 
 
 
     }
-    private String intMap(HashMap<String,Integer> map , String last ,int price , int numOfTick ,  int textBaggage , int rate ){
 
-        last = intHandler(map , price ,"price"  , last );
-        last = intHandler(map , numOfTick ,"number_of_tickets"  , last );
-        last = intHandler(map , textBaggage ,"baggage"  , last );
-        last = intHandler(map , rate ,"rating"  , last );
+    private void intMap(HashMap<String,Integer> map ,Vacation v ){
 
-        return last;
+        intHandler(map ,v.getPrice()  ,"price" );
+        intHandler(map , v.getNumOfTickts() ,"number_of_tickets"   );
+        intHandler(map ,v.getBaggage() ,"baggage"   );
+        intHandler(map ,v.getRating()  ,"rating"   );
+
 
     }
 
-    private String stringHandler(HashMap<String, String> map , String value , String wordId ,  String last ){
+    private void stringHandler(HashMap<String, String> map , String value , String wordId  ){
         // wordId - sql , valueID = name in the function
         String ans ;
         if(!value.equals("")) {
             ans =  wordId+" = ? AND ";
             map.put(ans ,value );
-            last = ans ;
         }
-       return last;
 
     }
 
-    private String intHandler(HashMap<String,Integer> map , int value , String wordId,  String last ){
+    private void intHandler(HashMap<String,Integer> map , int value , String wordId){
         // wordId - sql , valueID = name in the function
         String ans ;
         if(value != 0) {
             ans =  wordId+" = ? AND ";
             map.put(ans ,value);
-            last = ans ;
+
         }
-        return last;
+
 
 
     }

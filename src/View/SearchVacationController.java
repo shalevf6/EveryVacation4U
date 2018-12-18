@@ -125,10 +125,23 @@ public class SearchVacationController extends AController {
         if(!rate.equals(""))
             rateNum = Integer.parseInt(rate);
 
+        Vacation v = new Vacation();
+        v.setVacationType(typeVac);
+        v.setTicktType(textType);
+        v.setRoomRent(rent);
+        v.setReturnFlight(textReturn);
+        v.setRating( rateNum);
+        v.setPurchase(purc);
+        v.setPrice(numPrice);
+        v.setNumOfTickts(numberOfTickets);
+        v.setDestination(textDes);
+        v.setDateT(dateT);
+        v.setDateF(dateF);
+        v.setConnectingFlight(connectFlight);
+        v.setBaggage(baggageWeight);
+        v.setAirLine(textAirline);
 
-        List<Vacation> list = AController.controller.searchVacation(dateF,dateT,numPrice,textDes,numberOfTickets,
-                baggageWeight, textAirline , textReturn , textType,purc , connectFlight,
-                rent , rateNum , typeVac) ;
+        List<Vacation> list = AController.controller.searchVacation(v) ;
 
         if(list == null)
             return;
