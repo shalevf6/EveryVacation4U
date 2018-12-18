@@ -9,27 +9,27 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="text-field" stylesheets="@../css/addVacation.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ProfileController">
    <children>
       <Button fx:id="close" layoutX="205.0" layoutY="341.0" mnemonicParsing="false" onAction="#onBack" text="Back" />
-      <Label fx:id="userName" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="80.0" prefHeight="17.0" prefWidth="192.0">
+      <Label  fx:id="userName" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="80.0" prefHeight="17.0" prefWidth="192.0" text="">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="firstName" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="130.0" prefHeight="17.0" prefWidth="192.0">
+      <Label fx:id="firstName" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="130.0" prefHeight="17.0" prefWidth="192.0" text="">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="birth" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="230.0" prefHeight="17.0" prefWidth="192.0">
+      <Label fx:id="birth" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="230.0" prefHeight="17.0" prefWidth="192.0" text="">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lastName" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="180.0" prefHeight="17.0" prefWidth="192.0">
+      <Label fx:id="lastName"  alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="180.0" prefHeight="17.0" prefWidth="192.0" text="">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="city" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="280.0" prefHeight="17.0" prefWidth="192.0">
+      <Label fx:id="city" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="280.0" prefHeight="17.0" prefWidth="192.0" text="">
          <font>
             <Font size="18.0" />
          </font>
@@ -64,6 +64,6 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Button onAction="#onUpdate" layoutX="312.0" layoutY="341.0" mnemonicParsing="false" text="Update" />
+      <Button layoutX="312.0" layoutY="341.0" mnemonicParsing="false" onAction="#onUpdate" text="Update" />
    </children>
 </AnchorPane>

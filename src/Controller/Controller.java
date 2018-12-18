@@ -118,6 +118,14 @@ public class Controller {
 
     }
 
+    public String tradeVacation(int id_Vacation1 , int id_Vacation2){
+
+        String[] ans = model.tradeVacation(id_Vacation1 , id_Vacation2);
+        handleAlert(ans);
+        return ans[0];
+
+    }
+
     public void handleAlert(String[] al){
         Alert alert;
         if(al[0].equals("F")) {

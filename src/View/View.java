@@ -63,7 +63,7 @@ public class View {
             stage.setTitle(title);
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent root = fxmlLoader.load(getClass().getResource(fxmlPath));
-            fxmlLoader.setController(new CreateController());
+            //fxmlLoader.setController(new CreateController());
             Scene scene = new Scene(root, width, height);
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);

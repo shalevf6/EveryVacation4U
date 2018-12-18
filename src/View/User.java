@@ -6,12 +6,12 @@ import javafx.beans.property.StringProperty;
 public class User {
 
 
-    private StringProperty userName ;
-    private StringProperty password ;
-    private StringProperty birthDate;
-    private StringProperty firstName;
-    private StringProperty lastName;
-    private StringProperty city;
+    public StringProperty userName ;
+    public StringProperty password ;
+    public StringProperty birthDate;
+    public StringProperty firstName;
+    public StringProperty lastName;
+    public StringProperty city;
 
     public User(){
         userName = new SimpleStringProperty();
