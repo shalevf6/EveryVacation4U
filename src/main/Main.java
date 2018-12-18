@@ -90,7 +90,7 @@ public class Main extends Application {
                 + "	idUser text ,\n"
                 + "FOREIGN KEY (idUser) REFERENCES users(userName)"
                 + ");";
-        String sqlPayment = "CREATE TABLE IF NOT EXISTS userPayment (\n"
+        String sqlPurchaseRequest = "CREATE TABLE IF NOT EXISTS userPayment (\n"
                 + "	idPayment integer PRIMARY KEY,\n"
                 + "	idVacation integer NOT NULL,\n"
                 + "	idBuyer text NOT NULL,\n"
@@ -118,7 +118,7 @@ public class Main extends Application {
             stmt.execute(sqlCurUser);
             stmt.execute(sqlVacation);
             stmt.execute(sqlUserVacation);
-            stmt.execute(sqlPayment);
+            stmt.execute(sqlPurchaseRequest);
             stmt.execute(sqlTrade);
         } catch (SQLException e) {
             System.out.println(e.getMessage());

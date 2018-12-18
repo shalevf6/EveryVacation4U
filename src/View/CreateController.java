@@ -24,7 +24,6 @@ public class CreateController extends AController {
             return;
         }
 
-
         User u = new User();
         u.setUserName(txtfld_user_name.getText());
         u.setPassword(txtfld_password.getText());
