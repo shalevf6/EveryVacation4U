@@ -1,26 +1,52 @@
 package View;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class purchaseRequest extends Arequest {
 
     private boolean isPaid;
 
 
+
     public purchaseRequest(int id,int v1, String sellerId, String buyerId){
-        this.myVacID = v1;
-        this.sellerID=sellerId;
-        this.buyerID=buyerId;
+
+        this.setWantedVacID( v1);
+        this.setPaid("false");
+        this.setBuyerID(buyerId);
+        this.setMyId(id);
+        this.setSellerID(sellerId);
         requestStatus = RequestStatus.Waiting;
-        isPaid = false;
-        type = "purchase";
-        this.myId = id;
     }
 
     public boolean isPaid() {
         return isPaid;
     }
 
-
-    public int getWantedVacID(){
-        return -1;
+    public String isStringPaid(){
+        if(isPaid)
+            return "true";
+        else
+            return "false";
     }
+
+    public StringProperty isStringPropartyPaid(){
+
+        StringProperty paid = new SimpleStringProperty(isStringPaid());
+        return paid;
+    }
+
+    public void setPaid(String ans){
+
+        if(ans.equals("false"))
+            this.isPaid= false;
+
+        if(ans.equals("true"))
+            this.isPaid = true;
+    }
+
+
+
+
+
 }

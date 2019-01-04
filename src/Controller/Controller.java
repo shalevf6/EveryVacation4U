@@ -7,8 +7,8 @@ import Model.Model;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import View.User;
-
-import java.sql.ResultSet;
+import View.purchaseRequest;
+import View.tradeRequest;
 import java.util.List;
 
 public class Controller {
@@ -97,6 +97,18 @@ public class Controller {
 
     }
 
+    public List<purchaseRequest> getPurchaseRequestList(){
+
+        List<purchaseRequest> list = this.model.getPurchaseList(profile().getUserName());
+        return list;
+
+    }
+
+    public List<tradeRequest> getTradeRequestList(){
+
+        List<tradeRequest> list = this.model.getTradeList(profile().getUserName());
+        return list;
+    }
 
     public List<Vacation> searchVacation(Vacation v){
 
@@ -106,18 +118,30 @@ public class Controller {
         return list;
     }
 
-    public String buyVacation(int id_Vacation ){
+    public String approveRequest(int id_request){
 
-
-        String[] ans = model.buyVacation(id_Vacation);
+        String[] ans = this.model.confirmRequest(id_request);
         handleAlert(ans);
         return ans[0];
 
     }
 
-    public String tradeVacation(int id_Vacation1 , int id_Vacation2){
+    public String sendPurchaseRequest(int id_Vacation){
+        String[] ans = this.model.sendPurchaseRequest(id_Vacation);
+        handleAlert(ans);
+        return ans[0];
+    }
 
-        String[] ans = model.tradeVacation(id_Vacation1 , id_Vacation2);
+    public String sendTradeRequest(int idVacationBuyer , int idVacationSeller ){
+
+        String[] ans = this.model.sendTradeRequest(idVacationBuyer ,idVacationSeller );
+        handleAlert(ans);
+        return ans[0];
+    }
+
+    public String confirmIsPaid(int id_request){
+
+        String[] ans = this.model. confirmIsPaid( id_request);
         handleAlert(ans);
         return ans[0];
 

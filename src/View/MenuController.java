@@ -1,15 +1,10 @@
 package View;
 
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
-
 import javafx.event.EventHandler;
-import java.util.Optional;
 
 public class MenuController extends AController {
 
@@ -68,7 +63,7 @@ public class MenuController extends AController {
     }
 
     public void onProfile(){
-        this.createNewWindow("Profile" , "/fxml/profile.fxml" , 600 , 400);
+        this.createNewWindow("Profile" , "/fxml/profile.fxml" , 500 , 300);
 
     }
 
@@ -83,7 +78,7 @@ public class MenuController extends AController {
 
         String title = "Trade Vacation";
         String path = "/fxml/tradeVacation.fxml";
-        createNewWindow(title , path ,400 , 200);
+        createNewWindow(title , path ,600 , 400);
 
 
     }

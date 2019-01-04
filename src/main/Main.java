@@ -91,25 +91,23 @@ public class Main extends Application {
                 + "FOREIGN KEY (idUser) REFERENCES users(userName)"
                 + ");";
         String sqlPurchaseRequest = "CREATE TABLE IF NOT EXISTS userPayment (\n"
-                + "	idPayment integer PRIMARY KEY,\n"
+                + "	id integer PRIMARY KEY,\n"
                 + "	idVacation integer NOT NULL,\n"
                 + "	idBuyer text NOT NULL,\n"
                 + "	idSeller text NOT NULL,\n"
-                + "	card text NOT NULL,\n"
-                + "	cardNumber text NOT NULL \n"
+                + " isPaid text NOT NULL, \n"
+                + " requestStatus text NOT NULL \n"
                 + ");";
         String sqlTrade = "CREATE TABLE IF NOT EXISTS userTrade (\n"
-                + "	idTrade integer PRIMARY KEY,\n"
-                + "	idVacation1 integer NOT NULL,\n"
-                + "	idVacation2 integer NOT NULL,\n"
-                + "	id_User1 text NOT NULL,\n"
-                + "	id_User2 text NOT NULL\n"
+                + "	id integer PRIMARY KEY,\n"
+                + "	idVacationBuyer integer NOT NULL,\n"
+                + "	idVacationSeller integer NOT NULL,\n"
+                + "	idBuyer text NOT NULL,\n"
+                + "	idSeller text NOT NULL, \n"
+                + " requestStatus text NOT NULL \n"
                 + ");";
 
-        //Connecting flight
-        //Is the hotel / B & B / roomRent is included in the price?
-        //Rating of accommodation
-        //Type of vacation
+
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             // create a new table

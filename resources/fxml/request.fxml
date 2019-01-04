@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="478.0" prefWidth="600.0" styleClass="text-field" stylesheets="@../css/addVacation.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.RequestController">
+   <children>
+      <TableView fx:id="purchaseRequest" layoutX="47.0" layoutY="62.0" prefHeight="131.0" prefWidth="506.0">
+        <columns>
+          <TableColumn fx:id="colpurchaseId" prefWidth="75.0" text="id request" />
+          <TableColumn fx:id="colpurchaseVacId" prefWidth="75.0" text="vacation id" />
+            <TableColumn fx:id="colBuyerId" prefWidth="75.0" text="buyer id" />
+            <TableColumn fx:id="colPaid" prefWidth="75.0" text="is paid" />
+            <TableColumn fx:id="colRequestStatusPurchase" prefWidth="105.0" text="request status" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tradeRequest" layoutX="51.0" layoutY="228.0" prefHeight="131.0" prefWidth="506.0">
+        <columns>
+          <TableColumn fx:id="colTradeId"  prefWidth="75.0" text="id request" />
+          <TableColumn fx:id="colOfferedVacId" prefWidth="113.0" text="offered vacation" />
+            <TableColumn fx:id="colForVacation" prefWidth="110.0" text="your vacation" />
+            <TableColumn fx:id="colTradeBuyerId" minWidth="7.0" prefWidth="107.0" text="buyer id" />
+            <TableColumn fx:id="colRequestStatusTrade" minWidth="7.0" prefWidth="99.0" text=" request status" />
+        </columns>
+      </TableView>
+      <Text layoutX="223.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Request" textAlignment="CENTER" wrappingWidth="172.13671875">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="241.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trade Request" wrappingWidth="118.13671875">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="approve" alignment="CENTER" layoutX="390.0" layoutY="385.0" prefHeight="25.0" prefWidth="118.0" promptText="Write id request" />
+      <TextField fx:id="payment" alignment="CENTER" layoutX="233.0" layoutY="385.0" prefHeight="25.0" prefWidth="118.0" promptText="Write id request" />
+      <Button onMouseClicked="#onApprove" layoutX="395.0" layoutY="410.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Approve request" />
+      <Button onMouseClicked="#onPayment" layoutX="233.0" layoutY="410.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Aprrove payment" />
+      <Button fx:id="Back" onMouseClicked="#onBack" layoutX="98.0" layoutY="410.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="Back" textAlignment="CENTER" />
+      <Text layoutX="250.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Requests" textAlignment="CENTER" underline="true" wrappingWidth="118.13672035932541">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

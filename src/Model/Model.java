@@ -1,13 +1,14 @@
 package Model;
 
-import View.User;
-import View.Vacation;
-import View.purchaseRequest;
-import View.tradeRequest;
+import View.*;
+
 import java.sql.*;
 import java.util.*;
 
 public class Model {
+
+    static private int vacationId = 0;
+    static private int requestId = 0;
 
     private Connection connect() {
         // SQLite connection string
@@ -241,7 +242,7 @@ public class Model {
 
         String sql = "INSERT INTO vacation(id,price,airline,date_from,date_to,number_of_tickets,destination,return_flight,type_of_tickets," +
                 "baggage,purchase_tickets,connecting_flight,roomRent,rating,Type_of_vacation) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        int id = returnMaxVacationId();
+        int id = (vacationId++);
         v.setId(id);
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -348,7 +349,101 @@ public class Model {
 
     }
 
-    public String[] buyVacation(int id_Vacation){
+    public String[] confirmRequest(int id_request){
+
+        String[] ans = new String[2];
+        String tableName = getRequestTableName(id_request);
+        if(tableName.equals("")){
+            ans[0] = "F";
+            ans[1] = "Id request not found";
+            return ans;
+
+        }
+        String status = getRequestState(id_request ,tableName);
+        if(status.equals("Approved")){
+            ans[0] = "F";
+            ans[1] = "Request already approved";
+            return ans;
+        }
+        if(status.equals("Reject")){
+            ans[0] = "F";
+            ans[1] = "Request Rejected";
+            return ans;
+        }
+
+        if(approveRequest(id_request, tableName)){
+            ans[0] = "S";
+            ans[1] = "Request approve";
+            return ans;
+        }else{
+            ans[0] = "F";
+            ans[1] = "Request approve failed";
+            return ans;
+        }
+
+
+
+    }
+
+    public List<purchaseRequest> getPurchaseList(String idSeller){
+
+        List<purchaseRequest> list = new ArrayList<>();
+
+        String sql = "SELECT * FROM userPayment WHERE idSeller = ? ";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
+            pstmt1.setString(1,idSeller);
+            ResultSet res =pstmt1.executeQuery();
+            while(res.next()){
+                int idVacation = res.getInt("idVacation");
+                String buyerID=res.getString("idBuyer");
+                String requestStatus =res.getString("requestStatus");
+                String isPaid = res.getString("isPaid");
+                int myId = res.getInt("id");
+                purchaseRequest p = new purchaseRequest(myId,idVacation,idSeller,buyerID);
+                p.setPaid(isPaid);
+                p.setStatusRequest(requestStatus);
+                list.add(p);
+            }
+
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return list;
+
+        }
+
+    }
+
+    public List<tradeRequest> getTradeList(String idSeller){
+
+        List<tradeRequest> list = new ArrayList<>();
+        String sql = "SELECT * FROM userTrade WHERE idSeller = ? ";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
+            pstmt1.setString(1,idSeller);
+            ResultSet res =pstmt1.executeQuery();
+            while(res.next()){
+                int idVacationBuyer = res.getInt("idVacation1");
+                int idVacationSeller = res.getInt("idVacation2");
+                String buyerID=res.getString("idBuyer");
+                String requestStatus =res.getString("requestStatus");
+                int myId = res.getInt("id");
+                tradeRequest p = new tradeRequest(myId,idVacationBuyer,idVacationSeller,buyerID,idSeller);
+                p.setStatusRequest(requestStatus);
+                list.add(p);
+            }
+
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return list;
+
+        }
+
+    }
+
+    public String[] sendPurchaseRequest(int id_Vacation){
 
         String[] ans = new String[2];
         if(!checkVacationId( id_Vacation)){
@@ -358,9 +453,7 @@ public class Model {
         }
         String curUser = getCurUser();
         String idSeller = getIdSeller(id_Vacation);
-        int idPurchaseReq = returnMaxPaymentId();
-        purchaseRequest pr = new purchaseRequest(idPurchaseReq,id_Vacation, idSeller, curUser);
-
+        int idPurchaseReq = (requestId++);
         if(curUser.equals(idSeller)){
             ans[0] = "F";
             ans[1] = "User can't buy his own vacation";
@@ -372,18 +465,18 @@ public class Model {
             return ans;
         }
 
-
-        String sql =  "INSERT INTO userPayment(idPurchaseReq,idVacation,idBuyer,idSeller) VALUES(?,?,?,?)";
-
-
-
+        purchaseRequest p = new purchaseRequest(idPurchaseReq , id_Vacation , idSeller , curUser);
+        String sql =  "INSERT INTO userPayment(id,idVacation,idBuyer,idSeller,isPaid,requestStatus) VALUES(?,?,?,?,?,?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, idPurchaseReq);
-            pstmt.setInt(2, id_Vacation);
-            pstmt.setString(3, curUser);
-            pstmt.setString(4, idSeller);
+
+            pstmt.setInt(1, p.getMyId());
+            pstmt.setInt(2, p.getWantedVacID());
+            pstmt.setString(3, p.getBuyerID());
+            pstmt.setString(4, p.getSellerID());
+            pstmt.setString(5,p.isStringPaid());
+            pstmt.setString(6,p.getRequestStatus());
             pstmt.executeUpdate();
 
             ans[0] = "S";
@@ -397,58 +490,92 @@ public class Model {
         }
     }
 
-    public String[] tradeVacation(int id_Vacation1 , int id_Vacation2){
+    public String[] sendTradeRequest(int idVacationBuyer , int idVacationSeller ){
 
         String[] ans = new String[2];
-        String user1 = getCurUser();
-        String idSeller = getIdSeller(id_Vacation2);
-        int idTrade = returnMaxTradeId() ;
-        tradeRequest tradeReq = new tradeRequest( idTrade,id_Vacation1, id_Vacation2, user1, idSeller);
-        /*
-
-        need do add check if cur user not found
-
-         */
-        if(getIdSeller(id_Vacation1).equals(user1)){
+        if(!checkVacationId( idVacationBuyer) || !checkVacationId( idVacationSeller) ){
             ans[0] = "F";
-            ans[1] = "User don't own this vacation ";
+            ans[1] = "fail to find vacation";
             return ans;
         }
-        if(!checkVacationId(id_Vacation1) || !checkVacationId(id_Vacation2) ){
+        String idBuyer = getCurUser();
+        String idSeller = getIdSeller(idVacationSeller);
+        int id = (requestId++);
+        if(idBuyer.equals(idSeller)){
             ans[0] = "F";
-            ans[1] = "Invalid id vacation";
+            ans[1] = "User can't trade his own vacation";
             return ans;
         }
-        String user2 = getIdSeller(id_Vacation2) ;
-        if(user1.equals( user2)){
-            ans[0] = "F";
-            ans[1] = "User can't trade vacation with himself";
+        if(idBuyer.equals("")){
+            ans[0] =  "F" ;
+            ans[1] = " You need to log in to trade a vacation" ;
             return ans;
-
         }
 
-        String sql =  "INSERT INTO userTrade(idTrade,idVacation1,idVacation2,id_User1,id_User2) VALUES(?,?,?,?,?)";
+        tradeRequest t = new tradeRequest( id,idVacationBuyer,idVacationSeller, idBuyer, idSeller);
+        String sql =  "INSERT INTO userPayment(id,idVacationBuyer,idVacationSeller, idBuyer, idSeller,requestStatus) VALUES(?,?,?,?,?,?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, idTrade);
-            pstmt.setInt(2,id_Vacation1);
-            pstmt.setInt(3, id_Vacation2);
-            pstmt.setString(4, user1);
-            pstmt.setString(5, user2);
 
+            pstmt.setInt(1, t.getMyId());
+            pstmt.setInt(2, t.getIdVacationBuyer());
+            pstmt.setInt(3, t.getWantedVacID());
+            pstmt.setString(4, t.getBuyerID());
+            pstmt.setString(5,t.getSellerID());
+            pstmt.setString(6,t.getRequestStatus());
             pstmt.executeUpdate();
 
             ans[0] = "S";
-            ans[1] = "Vacation trade success";
+            ans[1] = "Vacation tradeRequest created successfully";
             return ans;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             ans[0] = "F";
-            ans[1] =  " Vacation trade fail ";
+            ans[1] = "Vacation tradeRequest create failed";
+            return ans;
+        }
+
+
+    }
+
+    public String[] confirmIsPaid(int id_request){
+
+        String[] ans = new String[2];
+        String tableName = getRequestTableName(id_request);
+
+        if(tableName.equals("")){
+            ans[0] = "F";
+            ans[1] = "Id request not found";
+            return ans;
+        }
+
+        if (tableName.equals("userTrade")){
+            ans[0] = "F";
+            ans[1] = "Can not make payment for trade request";
+            return ans;
+        }
+        Arequest pr =  getRequest(id_request);
+        if(!pr.getRequestStatus().equals("Approved")){
+            ans[0] = "F";
+            ans[1] = "Can not confirm payment for request that is not approved ";
             return ans;
 
         }
+
+        if(isPaid(id_request)){
+            deleteVacation(pr.getWantedVacID());
+            deleteUserVacation(pr.getWantedVacID() ,pr.getSellerID());
+            ans[0] = "S";
+            ans[1] = "Confirm payment for the request";
+            return ans;
+        }else{
+            ans[0] = "F";
+            ans[1] = "Fail to confirm payment for the request ";
+            return ans;
+
+        }
+
 
 
     }
@@ -485,7 +612,10 @@ public class Model {
 
 
     }
-    
+
+
+    /////////////////// private function //////////////////
+
     private int returnMaxVacationId(){
 
         int ans = 0;
@@ -507,42 +637,101 @@ public class Model {
 
     }
 
-    private int returnMaxPaymentId(){
-        int ans = 1;
+    private int returnRequestId(){
+        int ans ;
+        int ans2 ;
+        int res = -1;
         String sql = "SELECT MAX(idPayment) FROM userPayment";
+        String sql2 = "SELECT MAX(idTrade) FROM userTrade";
         try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             PreparedStatement pstmt2 = conn.prepareStatement(sql2)) {
             ResultSet rs = pstmt.executeQuery();
+            ResultSet rs2 = pstmt2.executeQuery();
             if (!rs.next()) {
-                return 1;
+                ans = 0;
+            }else {
+                ans = rs.getInt("MAX(idPayment)");
+
             }
-            ans = rs.getInt("MAX(idPayment)");
-            ans++;
-            return ans;
+            if (!rs2.next()) {
+                ans2 = 0;
+            }else {
+                ans2 = rs2.getInt("MAX(idPayment)");
+            }
+            if(ans>ans2)
+                res= ans++;
+            else
+                res = ans2++;
+
+            return res;
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return ans;
+            return res;
         }
     }
 
-    private int returnMaxTradeId(){
-        int ans = 1;
-        String sql = "SELECT MAX(idTrade) FROM userTrade";
+    private boolean deleteUserVacation(int vacation_id , String userName){
+
+        String sql = "DELETE FROM userVacation WHERE idUser = ? AND idVacation = ?";
+
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            ResultSet rs = pstmt.executeQuery();
-            if (!rs.next()) {
-                return 1;
-            }
-            ans = rs.getInt("MAX(idTrade)");
-            ans++;
-            return ans;
-
+            // set the corresponding param
+            pstmt.setString(1, userName);
+            pstmt.setInt(2, vacation_id);
+            // execute the delete statement
+            pstmt.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return ans;
+            return false;
         }
+
+    }
+
+    private boolean deleteVacation(int id){
+
+        String sql = "DELETE FROM vacation WHERE id = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // set the corresponding param
+            pstmt.setInt(1,id);
+            // execute the delete statement
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+
+    }
+
+    private boolean deleteRequest(int requestId){
+        /*
+
+        omer - need to delete all the requests(same vacation) that have the connection to the request?
+         */
+        String tableName = getRequestTableName(requestId);
+        String sql = "DELETE FROM "+tableName+" WHERE id = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            // set the corresponding param
+            pstmt.setInt(1,requestId);
+            // execute the delete statement
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+
+
     }
 
     private String getIdSeller(int idVacation){
@@ -722,25 +911,6 @@ public class Model {
 
     }
 
-    private boolean deleteUserVacation(int vacation_id , String userName){
-
-        String sql = "DELETE FROM userVacation WHERE idUser = ? AND idVacation = ?";
-
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            // set the corresponding param
-            pstmt.setString(1, userName);
-            pstmt.setInt(2, vacation_id);
-            // execute the delete statement
-            pstmt.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-
-    }
-
     private String getCurUser(){
 
         String sqlCur = "SELECT userName FROM curUser";
@@ -759,25 +929,6 @@ public class Model {
             return "";
         }
 
-
-
-    }
-
-    private boolean deleteVacation(int id){
-
-        String sql = "DELETE FROM vacation WHERE id = ?";
-
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            // set the corresponding param
-            pstmt.setInt(1,id);
-            // execute the delete statement
-            pstmt.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
 
 
     }
@@ -819,6 +970,142 @@ public class Model {
             return ans;
         }
     }
+
+    private boolean approveRequest(int id_request, String tableName){
+
+        String sqlUpdate ;
+        if(tableName.equals("userPayment"))
+            sqlUpdate= "UPDATE userPayment SET requestStatus = ? WHERE id = ?" ;
+        else
+            sqlUpdate= "UPDATE userTrade SET requestStatus = ? WHERE id = ?" ;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmtUpdate = conn.prepareStatement(sqlUpdate)) {
+            pstmtUpdate.setString(1 , "Approved");
+            pstmtUpdate.setInt(2, id_request);
+            pstmtUpdate.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+          return false;
+        }
+    }
+
+    private String getRequestState(int id , String tableName){
+
+        if(!tableName.equals("userPayment") && !tableName.equals("userTrade") )
+            return  "";
+
+        String request = "SELECT requestStatus FROM "+tableName+" WHERE id = ? " ;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmtUpdate = conn.prepareStatement(request)) {
+            pstmtUpdate.setInt(1, id);
+            ResultSet res = pstmtUpdate.executeQuery();
+            if(!res.next()){
+                return "";
+
+            }
+            return res.getString("requestStatus");
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return "";
+        }
+
+    }
+
+    private String getRequestTableName(int id_request){
+
+
+        String purchaseRequest = "SELECT * FROM userPayment WHERE id = ? " ;
+        String tradeRequest = "SELECT * FROM userTrade WHERE id = ? " ;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmtPurchase = conn.prepareStatement(purchaseRequest);
+             PreparedStatement pstmtTrade = conn.prepareStatement(tradeRequest)) {
+            pstmtPurchase.setInt(1, id_request);
+            ResultSet res = pstmtPurchase.executeQuery();
+            if(res.next()){
+                return "userPayment";
+            }
+
+            pstmtTrade.setInt(1, id_request);
+            res =  pstmtTrade.executeQuery();
+            if(res.next()){
+                return "userTrade";
+            }
+
+            return "";
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return "";
+        }
+
+    }
+
+    private boolean isPaid(int id_request){
+
+
+        String sqlUpdate= "UPDATE userPayment SET isPaid = ? WHERE id = ?" ;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmtUpdate = conn.prepareStatement(sqlUpdate)) {
+            pstmtUpdate.setString(1 , "true");
+            pstmtUpdate.setInt(2, id_request);
+            pstmtUpdate.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+
+    }
+
+    private Arequest getRequest(int id_request){
+
+        String tableName = getRequestTableName( id_request);
+        String request = "SELECT * FROM "+tableName+" WHERE id = ? " ;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmtUpdate = conn.prepareStatement(request)) {
+            pstmtUpdate.setInt(1, id_request);
+            ResultSet res = pstmtUpdate.executeQuery();
+            if(!res.next()){
+                return null;
+            }
+            if(tableName.equals("userPayment")){
+                purchaseRequest pr = new purchaseRequest(res.getInt("id"),res.getInt("idVacation"),
+                        res.getString("idSeller"),res.getString("idBuyer"));
+                pr.setStatusRequest(res.getString("requestStatus"));
+                pr.setPaid(res.getString("isPaid"));
+                return pr;
+            }else{
+                tradeRequest tr = new tradeRequest(res.getInt("id"),res.getInt("idVacationBuyer"),
+                        res.getInt("idVacationSeller") ,res.getString("idBuyer"),
+                        res.getString("idSeller"));
+                tr.setStatusRequest(res.getString("requestStatus"));
+               return tr;
+
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+    }
+
+
 
 
 }
