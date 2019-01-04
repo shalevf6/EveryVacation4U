@@ -1,13 +1,17 @@
 package View;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 abstract public class Arequest {
 
+
     protected RequestStatus requestStatus;
-    protected String sellerID,buyerID,type;
-    protected int myVacID , myId;
+    protected StringProperty sellerID,buyerID;
+    protected IntegerProperty wantedVacID , myId;
 
 
-   abstract public int getWantedVacID();
 
     public enum RequestStatus
     {
@@ -23,19 +27,74 @@ abstract public class Arequest {
             requestStatus = RequestStatus.Approved;
     }
 
-    public RequestStatus getRequestStatus() {
-        return requestStatus;
+    public String getRequestStatus() {
+        return getStringRequestStatus(requestStatus);
+    }
+
+    public void setSellerID(String sellerID) {
+        this.sellerID.set(sellerID);
+    }
+
+    public void setBuyerID(String buyerID) {
+        this.buyerID.set(buyerID);
+    }
+
+    public void setWantedVacID(int wantedVacID) {
+        this.wantedVacID.set(wantedVacID);
+    }
+
+    public void setMyId(int myId) {
+        this.myId.set(myId);
+    }
+
+    public StringProperty RequestStatusProperty(){
+        StringProperty status = new SimpleStringProperty(getStringRequestStatus(requestStatus));
+        return status;
     }
 
     public String getSellerID() {
+        return sellerID.get();
+    }
+
+    public StringProperty sellerIDProperty() {
         return sellerID;
     }
 
     public String getBuyerID() {
+        return buyerID.get();
+    }
+
+    public StringProperty buyerIDProperty() {
         return buyerID;
     }
 
-    public int getMyVacID() {
-        return myVacID;
+    public int getWantedVacID() {
+        return wantedVacID.get();
+    }
+
+    public IntegerProperty wantedVacIDProperty() {
+        return wantedVacID;
+    }
+
+    public int getMyId() {
+        return myId.get();
+    }
+
+    public IntegerProperty myIdProperty() {
+        return myId;
+    }
+
+    private String getStringRequestStatus(RequestStatus r){
+
+        if(r== RequestStatus.Reject )
+            return "Reject";
+        if(r== RequestStatus.Approved )
+            return "Approved";
+        if(r== RequestStatus.Waiting )
+            return "Waiting";
+
+        return"";
+
+
     }
 }

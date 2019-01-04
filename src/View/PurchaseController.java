@@ -2,9 +2,7 @@ package View;
 
 
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 
@@ -40,9 +38,7 @@ public class PurchaseController extends AController {
 
         int idVacation = Integer.parseInt(vacationId.getText());
 
-
-
-        String ans=AController.controller.buyVacation(idVacation);
+        String ans=AController.controller.sendPurchaseRequest(idVacation);
 
         if(ans == "S")
             onBack();

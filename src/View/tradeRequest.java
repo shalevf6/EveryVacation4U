@@ -1,24 +1,32 @@
 package View;
 
+import javafx.beans.property.IntegerProperty;
+
 public class tradeRequest extends Arequest {
 
-    private int wantedVacID;
 
-    public tradeRequest(int id,int myVac, int wantedVac, String curUser, String idSeller){
-        this.myVacID = myVac;
-        this.wantedVacID = wantedVac;
-        this.buyerID = curUser;
-        this.sellerID = idSeller;
+    private IntegerProperty idVacationBuyer;
+
+    public tradeRequest(int id,int idVacationBuyer, int idVacationSeller, String buyer, String idSeller){
+        setIdVacationBuyer(idVacationBuyer);
+        this.wantedVacID.set(idVacationSeller);
+        this.buyerID.set( buyer);
+        this.sellerID.set(idSeller);
         requestStatus = RequestStatus.Waiting;
-        type = "trade";
-        this.myId= id;
+        this.myId.set( id);
+    }
+    public int getIdVacationBuyer() {
+        return idVacationBuyer.get();
     }
 
-    public int getMyVacID() {
-        return myVacID;
+    public IntegerProperty idVacationBuyerProperty() {
+        return idVacationBuyer;
     }
 
-    public int getWantedVacID() {
-        return wantedVacID;
+    public void setIdVacationBuyer(int idVacationBuyer) {
+        this.idVacationBuyer.set(idVacationBuyer);
     }
+
+
+
 }

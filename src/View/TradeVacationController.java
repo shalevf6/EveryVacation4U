@@ -8,24 +8,25 @@ public class TradeVacationController extends AController {
 
     public Button close ;
     public Button trade;
-    public TextField id_Vacation1;
-    public TextField id_Vacation2;
+    public TextField yoursId_Vacation;
+    public TextField wantedId_Vacation;
 
 
     public void onTrade(){
 
-        if(id_Vacation1.getText().equals("") ||id_Vacation2.getText().equals("") ){
+        if(yoursId_Vacation.getText().equals("") ||wantedId_Vacation.getText().equals("") ){
             this.error("Invalid vacation id");
         }
         try{
-            Integer.parseInt(id_Vacation1.getText());
-            Integer.parseInt(id_Vacation2.getText());
+            Integer.parseInt(yoursId_Vacation.getText());
+            Integer.parseInt(wantedId_Vacation.getText());
 
         }catch (NumberFormatException e){
          this.error("Invalid vacation id");
         }
 
-        String ans = this.controller.tradeVacation(Integer.parseInt(id_Vacation1.getText()) ,Integer.parseInt(id_Vacation2.getText()) );
+        String ans = this.controller.sendTradeRequest(Integer.parseInt(yoursId_Vacation.getText()) ,
+                Integer.parseInt(wantedId_Vacation.getText()) );
         if(ans.equals("S"))
             onBack();
     }
