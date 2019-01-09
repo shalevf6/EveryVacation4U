@@ -97,16 +97,16 @@ public class Controller {
 
     }
 
-    public List<purchaseRequest> getPurchaseRequestList(){
+    public List<purchaseRequest> getPurchaseRequestList(boolean coming){
 
-        List<purchaseRequest> list = this.model.getPurchaseList(profile().getUserName());
+        List<purchaseRequest> list = this.model.getPurchaseList(profile().getUserName() , coming);
         return list;
 
     }
 
-    public List<tradeRequest> getTradeRequestList(){
+    public List<tradeRequest> getTradeRequestList(boolean coming){
 
-        List<tradeRequest> list = this.model.getTradeList(profile().getUserName());
+        List<tradeRequest> list = this.model.getTradeList(profile().getUserName() , coming);
         return list;
     }
 
@@ -146,6 +146,7 @@ public class Controller {
         return ans[0];
 
     }
+
 
     public void handleAlert(String[] al){
         Alert alert;

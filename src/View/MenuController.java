@@ -1,17 +1,28 @@
 package View;
 
 
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.event.EventHandler;
 
-public class MenuController extends AController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MenuController extends AController implements Initializable {
 
 
 
     public Button logout_BTN;
+    public User myUser;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        myUser = this.controller.profile();
+
+    }
     public void show(){
         String title = "Menu";
         String fxmlPath = "/fxml/menu.fxml";
@@ -82,6 +93,15 @@ public class MenuController extends AController {
 
 
     }
+
+    public void onRequest(){
+        String title = "Request List";
+        String path = "/fxml/request.fxml";
+        createNewWindow(title , path ,600 , 500);
+
+    }
+
+
 
 
 

@@ -10,6 +10,11 @@ public class Model {
     static private int vacationId = 0;
     static private int requestId = 0;
 
+    public void Model(){
+
+        vacationId = returnMaxVacationId();
+        requestId = returnRequestId();
+    }
     private Connection connect() {
         // SQLite connection string
         String url = "jdbc:sqlite:resources/sqlite/vacation4u.db";
@@ -242,7 +247,8 @@ public class Model {
 
         String sql = "INSERT INTO vacation(id,price,airline,date_from,date_to,number_of_tickets,destination,return_flight,type_of_tickets," +
                 "baggage,purchase_tickets,connecting_flight,roomRent,rating,Type_of_vacation) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        int id = (vacationId++);
+        int id = vacationId ;
+        id++;
         v.setId(id);
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -269,6 +275,7 @@ public class Model {
             ans[1] = "Vacation create success";
             conn.commit();
             addUserVacation(id);
+            ++vacationId;
             /*
             need to add a check for addUserVacation;
              */
@@ -385,14 +392,18 @@ public class Model {
 
     }
 
-    public List<purchaseRequest> getPurchaseList(String idSeller){
+    public List<purchaseRequest> getPurchaseList(String id , boolean coming){
 
         List<purchaseRequest> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM userPayment WHERE idSeller = ? ";
+        String sql;
+        if(coming)
+            sql = "SELECT * FROM userTrade WHERE idSeller = ? ";
+        else
+            sql = "SELECT * FROM userTrade WHERE idBuyer = ? ";
         try (Connection conn = this.connect();
              PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
-            pstmt1.setString(1,idSeller);
+            pstmt1.setString(1,id);
             ResultSet res =pstmt1.executeQuery();
             while(res.next()){
                 int idVacation = res.getInt("idVacation");
@@ -400,7 +411,7 @@ public class Model {
                 String requestStatus =res.getString("requestStatus");
                 String isPaid = res.getString("isPaid");
                 int myId = res.getInt("id");
-                purchaseRequest p = new purchaseRequest(myId,idVacation,idSeller,buyerID);
+                purchaseRequest p = new purchaseRequest(myId,idVacation,id,buyerID);
                 p.setPaid(isPaid);
                 p.setStatusRequest(requestStatus);
                 list.add(p);
@@ -415,21 +426,25 @@ public class Model {
 
     }
 
-    public List<tradeRequest> getTradeList(String idSeller){
+    public List<tradeRequest> getTradeList(String id ,boolean coming){
 
         List<tradeRequest> list = new ArrayList<>();
-        String sql = "SELECT * FROM userTrade WHERE idSeller = ? ";
-        try (Connection conn = this.connect();
+        String sql;
+        if(coming)
+            sql = "SELECT * FROM userTrade WHERE idSeller = ? ";
+        else
+            sql = "SELECT * FROM userTrade WHERE idBuyer = ? ";
+                try (Connection conn = this.connect();
              PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
-            pstmt1.setString(1,idSeller);
+            pstmt1.setString(1,id);
             ResultSet res =pstmt1.executeQuery();
             while(res.next()){
-                int idVacationBuyer = res.getInt("idVacation1");
-                int idVacationSeller = res.getInt("idVacation2");
+                int idVacationBuyer = res.getInt("idVacationBuyer");
+                int idVacationSeller = res.getInt("idVacationSeller");
                 String buyerID=res.getString("idBuyer");
                 String requestStatus =res.getString("requestStatus");
                 int myId = res.getInt("id");
-                tradeRequest p = new tradeRequest(myId,idVacationBuyer,idVacationSeller,buyerID,idSeller);
+                tradeRequest p = new tradeRequest(myId,idVacationBuyer,idVacationSeller,buyerID,id);
                 p.setStatusRequest(requestStatus);
                 list.add(p);
             }
@@ -453,7 +468,7 @@ public class Model {
         }
         String curUser = getCurUser();
         String idSeller = getIdSeller(id_Vacation);
-        int idPurchaseReq = (requestId++);
+        int idPurchaseReq = requestId;
         if(curUser.equals(idSeller)){
             ans[0] = "F";
             ans[1] = "User can't buy his own vacation";
@@ -478,7 +493,7 @@ public class Model {
             pstmt.setString(5,p.isStringPaid());
             pstmt.setString(6,p.getRequestStatus());
             pstmt.executeUpdate();
-
+            ++requestId;
             ans[0] = "S";
             ans[1] = "Vacation purchaseRequest created successfully";
             return ans;
@@ -500,7 +515,7 @@ public class Model {
         }
         String idBuyer = getCurUser();
         String idSeller = getIdSeller(idVacationSeller);
-        int id = (requestId++);
+        int id = requestId;
         if(idBuyer.equals(idSeller)){
             ans[0] = "F";
             ans[1] = "User can't trade his own vacation";
@@ -513,7 +528,7 @@ public class Model {
         }
 
         tradeRequest t = new tradeRequest( id,idVacationBuyer,idVacationSeller, idBuyer, idSeller);
-        String sql =  "INSERT INTO userPayment(id,idVacationBuyer,idVacationSeller, idBuyer, idSeller,requestStatus) VALUES(?,?,?,?,?,?)";
+        String sql =  "INSERT INTO userTrade(id,idVacationBuyer,idVacationSeller, idBuyer, idSeller,requestStatus) VALUES(?,?,?,?,?,?)";
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -525,7 +540,7 @@ public class Model {
             pstmt.setString(5,t.getSellerID());
             pstmt.setString(6,t.getRequestStatus());
             pstmt.executeUpdate();
-
+            ++requestId;
             ans[0] = "S";
             ans[1] = "Vacation tradeRequest created successfully";
             return ans;
@@ -648,21 +663,24 @@ public class Model {
              PreparedStatement pstmt2 = conn.prepareStatement(sql2)) {
             ResultSet rs = pstmt.executeQuery();
             ResultSet rs2 = pstmt2.executeQuery();
+            if(!rs.next() && !rs2.next() )
+                return 0;
             if (!rs.next()) {
-                ans = 0;
+                ans = -1;
             }else {
                 ans = rs.getInt("MAX(idPayment)");
-
+                ans++;
             }
             if (!rs2.next()) {
-                ans2 = 0;
+                ans2 = -1;
             }else {
                 ans2 = rs2.getInt("MAX(idPayment)");
+                ans2++;
             }
             if(ans>ans2)
-                res= ans++;
+                res = ans;
             else
-                res = ans2++;
+                res = ans2;
 
             return res;
 
@@ -911,7 +929,7 @@ public class Model {
 
     }
 
-    private String getCurUser(){
+    public String getCurUser(){
 
         String sqlCur = "SELECT userName FROM curUser";
         try (Connection conn = this.connect();

@@ -63,11 +63,11 @@ public class AddVacationController extends AController {
         String[] dateFrom = dateF.split("/");
         String[] dateTo = dateT.split("/");
         int fromYear = Integer.parseInt(dateFrom[2]);
-        int fromMonth = Integer.parseInt(dateFrom[1]);
-        int fromDay = Integer.parseInt(dateFrom[0]);
+        int fromMonth = Integer.parseInt(dateFrom[0]);
+        int fromDay = Integer.parseInt(dateFrom[1]);
         int toYear = Integer.parseInt(dateTo[2]);
-        int toMonth = Integer.parseInt(dateTo[1]);
-        int toDay = Integer.parseInt(dateTo[0]);
+        int toMonth = Integer.parseInt(dateTo[0]);
+        int toDay = Integer.parseInt(dateTo[1]);
         if ((toYear < fromYear) || (toYear == fromYear && toMonth < fromMonth) || (toYear == fromYear && toMonth == fromMonth && toDay < fromDay)) {
             error("The number of vacation days must be positive");
             return;

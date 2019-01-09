@@ -1,5 +1,7 @@
 package View;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -11,6 +13,10 @@ public class purchaseRequest extends Arequest {
 
     public purchaseRequest(int id,int v1, String sellerId, String buyerId){
 
+        sellerID =  new SimpleStringProperty();
+        buyerID  = new SimpleStringProperty();
+        wantedVacID = new SimpleIntegerProperty();
+        myId= new SimpleIntegerProperty();
         this.setWantedVacID( v1);
         this.setPaid("false");
         this.setBuyerID(buyerId);

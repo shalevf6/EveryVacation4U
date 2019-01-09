@@ -7,13 +7,15 @@ import javafx.stage.Stage;
 public class TradeVacationController extends AController {
 
     public Button close ;
-    public Button trade;
     public TextField yoursId_Vacation;
     public TextField wantedId_Vacation;
 
 
     public void onTrade(){
 
+        if(yoursId_Vacation == null||wantedId_Vacation == null ){
+            this.error("Invalid vacation id");
+        }
         if(yoursId_Vacation.getText().equals("") ||wantedId_Vacation.getText().equals("") ){
             this.error("Invalid vacation id");
         }

@@ -28,6 +28,12 @@ public class RequestController extends AController implements Initializable {
     public TableView<purchaseRequest> purchaseRequest;
     @FXML
     public TableView<tradeRequest> tradeRequest;
+
+    @FXML
+    public TableView<purchaseRequest> outPurchaseRequest;
+    @FXML
+    public TableView<tradeRequest> outTradeRequest;
+
     @FXML
     public TableColumn<purchaseRequest , Integer> colpurchaseId;
     @FXML
@@ -38,6 +44,7 @@ public class RequestController extends AController implements Initializable {
     public TableColumn<purchaseRequest , String> colPaid;
     @FXML
     public TableColumn<purchaseRequest , String> colRequestStatusPurchase;
+
     @FXML
     public TableColumn<tradeRequest , Integer> colTradeId;
     @FXML
@@ -48,6 +55,28 @@ public class RequestController extends AController implements Initializable {
     public TableColumn<tradeRequest , String> colTradeBuyerId;
     @FXML
     public TableColumn<tradeRequest , String> colRequestStatusTrade;
+
+    @FXML
+    public TableColumn<purchaseRequest , Integer> outcolpurchaseId;
+    @FXML
+    public TableColumn<purchaseRequest , Integer> outcolpurchaseVacId;
+    @FXML
+    public TableColumn<purchaseRequest , String> outcolBuyerId;
+    @FXML
+    public TableColumn<purchaseRequest , String> outcolPaid;
+    @FXML
+    public TableColumn<purchaseRequest , String> outcolRequestStatusPurchase;
+
+    @FXML
+    public TableColumn<tradeRequest , Integer> outcolTradeId;
+    @FXML
+    public TableColumn<tradeRequest , Integer> outcolOfferedVacId;
+    @FXML
+    public TableColumn<tradeRequest , Integer> outcolForVacation;
+    @FXML
+    public TableColumn<tradeRequest , String> outcolTradeBuyerId;
+    @FXML
+    public TableColumn<tradeRequest , String> outcolRequestStatusTrade;
 
 
 
@@ -60,14 +89,20 @@ public class RequestController extends AController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 
-        List<tradeRequest> tradeList = this.controller.getTradeRequestList();
-        List<purchaseRequest> purchaseList =this.controller.getPurchaseRequestList();
+        List<tradeRequest> tradeList = this.controller.getTradeRequestList(true);
+        List<purchaseRequest> purchaseList =this.controller.getPurchaseRequestList(true);
+
+        List<tradeRequest> outTradeList = this.controller.getTradeRequestList(false);
+        List<purchaseRequest> outPurchaseList =this.controller.getPurchaseRequestList(false);
 
         ObservableList<purchaseRequest> listObservablePurchase = FXCollections.observableArrayList(purchaseList);
         ObservableList<tradeRequest> listObservableTrade = FXCollections.observableArrayList(tradeList);
 
-        initializeTarde(listObservableTrade);
-        initializePurchase (listObservablePurchase);
+        ObservableList<purchaseRequest> listObservableOutPurchase = FXCollections.observableArrayList(outPurchaseList);
+        ObservableList<tradeRequest> listObservableOutTrade = FXCollections.observableArrayList(outTradeList);
+
+        initializeTarde(listObservableTrade ,listObservableOutTrade);
+        initializePurchase (listObservablePurchase , listObservableOutPurchase);
 
     }
 
@@ -92,7 +127,7 @@ public class RequestController extends AController implements Initializable {
         stage.close();
     }
 
-    private void initializeTarde(ObservableList<tradeRequest> list){
+    private void initializeTarde(ObservableList<tradeRequest> list ,ObservableList<tradeRequest> outList ){
 
 
        colTradeId.setCellValueFactory(cellData -> cellData.getValue().myIdProperty().asObject());
@@ -105,11 +140,24 @@ public class RequestController extends AController implements Initializable {
 
        colRequestStatusTrade.setCellValueFactory(cellData -> cellData.getValue().RequestStatusProperty());
 
+       //////////////////////
+
+        outcolTradeId.setCellValueFactory(cellData -> cellData.getValue().myIdProperty().asObject());
+
+        outcolOfferedVacId.setCellValueFactory(cellData -> cellData.getValue().idVacationBuyerProperty().asObject());
+
+        outcolForVacation.setCellValueFactory(cellData -> cellData.getValue().wantedVacIDProperty().asObject());
+
+        outcolTradeBuyerId.setCellValueFactory(cellData -> cellData.getValue().buyerIDProperty());
+
+        outcolRequestStatusTrade.setCellValueFactory(cellData -> cellData.getValue().RequestStatusProperty());
+
         tradeRequest.setItems(list);
+        outTradeRequest.setItems(outList);
 
     }
 
-    private void initializePurchase (ObservableList<purchaseRequest> list){
+    private void initializePurchase (ObservableList<purchaseRequest> list, ObservableList<purchaseRequest> outList){
 
 
         colpurchaseId.setCellValueFactory(cellData -> cellData.getValue().myIdProperty().asObject());
@@ -120,9 +168,22 @@ public class RequestController extends AController implements Initializable {
 
         colPaid.setCellValueFactory(cellData -> cellData.getValue().isStringPropartyPaid());
 
-        colRequestStatusTrade.setCellValueFactory(cellData -> cellData.getValue().RequestStatusProperty());
+        colRequestStatusPurchase.setCellValueFactory(cellData -> cellData.getValue().RequestStatusProperty());
+
+        ///////////////
+
+        outcolpurchaseId.setCellValueFactory(cellData -> cellData.getValue().myIdProperty().asObject());
+
+        outcolpurchaseVacId.setCellValueFactory(cellData -> cellData.getValue().wantedVacIDProperty().asObject());
+
+        outcolBuyerId.setCellValueFactory(cellData -> cellData.getValue().buyerIDProperty());
+
+        outcolPaid.setCellValueFactory(cellData -> cellData.getValue().isStringPropartyPaid());
+
+        outcolRequestStatusPurchase.setCellValueFactory(cellData -> cellData.getValue().RequestStatusProperty());
 
         purchaseRequest.setItems(list);
+        outPurchaseRequest.setItems(outList);
 
     }
 
