@@ -74,7 +74,7 @@ public class MenuController extends AController implements Initializable {
     }
 
     public void onProfile(){
-        this.createNewWindow("Profile" , "/fxml/profile.fxml" , 500 , 300);
+        this.createNewWindow("Profile" , "/fxml/profile.fxml" , 550 , 450);
 
     }
 
@@ -97,7 +97,7 @@ public class MenuController extends AController implements Initializable {
     public void onRequest(){
         String title = "Request List";
         String path = "/fxml/request.fxml";
-        createNewWindow(title , path ,600 , 500);
+        createNewWindow(title , path ,1100 , 500);
 
     }
 

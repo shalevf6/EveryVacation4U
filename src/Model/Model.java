@@ -412,9 +412,9 @@ public class Model {
 
         String sql;
         if(coming)
-            sql = "SELECT * FROM userTrade WHERE idSeller = ? ";
+            sql = "SELECT * FROM userPayment WHERE idSeller = ? ";
         else
-            sql = "SELECT * FROM userTrade WHERE idBuyer = ? ";
+            sql = "SELECT * FROM userPayment WHERE idBuyer = ? ";
         try (Connection conn = this.connect();
              PreparedStatement pstmt1 = conn.prepareStatement(sql)) {
             pstmt1.setString(1,id);
