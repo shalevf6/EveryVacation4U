@@ -16,7 +16,7 @@
       </Text>
       <TextField fx:id="yoursId_Vacation" alignment="CENTER" layoutX="52.0" layoutY="130.0" prefHeight="25.0" prefWidth="150.0" promptText="Enter yours vacation id" />
       <TextField fx:id="wantedId_Vacation" layoutX="262.0" layoutY="130.0" prefHeight="25.0" prefWidth="150.0" promptText="Enter wanted vacation id" />
-      <Button onMouseClicked="#onTrade" layoutX="156.0" layoutY="217.0" mnemonicParsing="false" text="Back" />
-      <Button fx:id="close" onMouseClicked="#onBack" layoutX="262.0" layoutY="217.0" mnemonicParsing="false" text="Send request" />
+      <Button onMouseClicked="#onBack" layoutX="156.0" layoutY="217.0" mnemonicParsing="false" text="Back" />
+      <Button fx:id="close"  onMouseClicked="#onTrade"  layoutX="262.0" layoutY="217.0" mnemonicParsing="false" text="Send request" />
    </children>
 </AnchorPane>

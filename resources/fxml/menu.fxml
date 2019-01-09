@@ -53,12 +53,12 @@
             <Font size="11.0" />
          </font>
       </TextField>
-      <ImageView onMouseClicked="#onSend" fitHeight="78.0" fitWidth="78.0" layoutX="7.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="78.0" fitWidth="78.0" layoutX="7.0" layoutY="109.0" onMouseClicked="#onSend" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pictures/buy.png" />
          </image>
       </ImageView>
-      <ImageView onMouseClicked="#onTrade" fitHeight="78.0" fitWidth="83.0" layoutX="135.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="78.0" fitWidth="83.0" layoutX="135.0" layoutY="109.0" onMouseClicked="#onTrade" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../pictures/trade.png" />
          </image>
@@ -73,5 +73,6 @@
             <Font size="11.0" />
          </font>
       </TextField>
+      <Button onMouseClicked="#onRequest"  layoutX="512.0" layoutY="136.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Request List" />
     </children>
 </AnchorPane>
