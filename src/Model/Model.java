@@ -359,13 +359,18 @@ public class Model {
     public String[] confirmRequest(int id_request){
 
         String[] ans = new String[2];
+        tradeRequest tr = null;
         String tableName = getRequestTableName(id_request);
         if(tableName.equals("")){
             ans[0] = "F";
             ans[1] = "Id request not found";
             return ans;
-
         }
+
+        if(tableName.equals("userTrade"))
+            tr = (tradeRequest)getRequest(id_request);
+
+
         String status = getRequestState(id_request ,tableName);
         if(status.equals("Approved")){
             ans[0] = "F";
@@ -378,15 +383,24 @@ public class Model {
             return ans;
         }
 
-        if(approveRequest(id_request, tableName)){
+        if(this.approveRequest(id_request, tableName)){
             ans[0] = "S";
             ans[1] = "Request approve";
+            if(tableName.equals("userTrade") && tr != null){
+                int wantedVacID = tr.getWantedVacID();
+                int idVacationBuyer = tr.getIdVacationBuyer();
+                this.deleteVacation(wantedVacID);
+                this.deleteVacation(idVacationBuyer);
+                this.deleteUserVacation(wantedVacID ,tr.getSellerID());
+                this.deleteUserVacation(idVacationBuyer ,tr.getBuyerID());
+            }
             return ans;
         }else{
             ans[0] = "F";
             ans[1] = "Request approve failed";
             return ans;
         }
+
 
 
 
